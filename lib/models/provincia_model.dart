@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-List<EstadoAviso> estadoAvisoFromJson(String str) => List<EstadoAviso>.from(
-    json.decode(str).map((x) => EstadoAviso.fromJson(x)));
+List<Provincia> provinciaFromJson(String str) =>
+    List<Provincia>.from(json.decode(str).map((x) => Provincia.fromJson(x)));
 
-String estadoAvisoToJson(List<EstadoAviso> data) =>
+String provinciaToJson(List<Provincia> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class EstadoAviso {
-  EstadoAviso({
+class Provincia {
+  Provincia({
     this.descripcion,
     this.rel,
     this.href,
@@ -23,7 +23,7 @@ class EstadoAviso {
   final String? type;
   final String? title;
 
-  factory EstadoAviso.fromJson(Map<String, dynamic> json) => EstadoAviso(
+  factory Provincia.fromJson(Map<String, dynamic> json) => Provincia(
         descripcion: json["descripcion"],
         rel: json["rel"],
         href: json["href"],

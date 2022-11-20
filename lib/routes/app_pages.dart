@@ -7,7 +7,7 @@ abstract class AppPages {
   static final pages = [
     GetPage(
         name: Routes.home,
-        page: () => const HomePage(),
+        page: () => HomePage(),
         transition: Transition.native),
     GetPage(
         name: Routes.avisos,

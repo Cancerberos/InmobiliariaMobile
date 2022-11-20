@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:inmobiliaria/models/avisos_model.dart';
+import 'package:inmobiliaria/models/avisos_mock_model.dart';
 
 class InmuebleCaracteristicas extends StatelessWidget {
   const InmuebleCaracteristicas({Key? key, required this.aviso})
       : super(key: key);
 
-  final Aviso aviso;
+  final AvisoMock aviso;
 
   final textStyle = const TextStyle(
     fontSize: 20,
@@ -24,7 +24,7 @@ class InmuebleCaracteristicas extends StatelessWidget {
         elevation: 20.0,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
           padding: const EdgeInsets.all(10.0),

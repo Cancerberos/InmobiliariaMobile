@@ -14,7 +14,7 @@ class BackgroundImage extends StatelessWidget {
         image: DecorationImage(
           image: image,
           fit: BoxFit.fill,
-          opacity: 180.0,
+          opacity: 150.0,
         ),
       ),
     );

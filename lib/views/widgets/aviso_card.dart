@@ -2,73 +2,104 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inmobiliaria/models/avisos_model.dart';
+import 'package:inmobiliaria/models/avisos_mock_model.dart';
 import 'package:inmobiliaria/views/pages/aviso_detalle_page.dart';
 
 class InfoAviso extends StatelessWidget {
   const InfoAviso({Key? key, required this.aviso}) : super(key: key);
 
-  final textStyle = const TextStyle(
-      fontSize: 14, overflow: TextOverflow.ellipsis, color: Colors.white);
+  final textStyle1 = const TextStyle(
+    fontSize: 14,
+    overflow: TextOverflow.ellipsis,
+    color: Colors.white,
+  );
+  final textStyle2 = const TextStyle(
+      fontSize: 22,
+      overflow: TextOverflow.ellipsis,
+      color: Colors.white,
+      fontWeight: FontWeight.bold);
 
-  final Aviso aviso;
+  final AvisoMock aviso;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (() => Get.to(AvisoDetallePage(aviso: aviso))),
+      onTap: (() => Get.to(() => AvisoDetallePage(aviso: aviso))),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width - 30,
-        height: 150,
-        child: Card(
-          color: Colors.grey[500]?.withOpacity(0.5),
-          shadowColor: Colors.black54,
-          elevation: 20.0,
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+        width: MediaQuery.of(context).size.width - 10,
+        height: 250,
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            Positioned(
+              width: MediaQuery.of(context).size.width - 25,
+              top: 5,
+              bottom: 5,
+              child: Card(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: (aviso.inmueble.imagen.isNotEmpty)
+                    ? Image.memory(
+                        base64Decode(aviso.inmueble.imagen[0].bytes),
+                        fit: BoxFit.fill,
+                      )
+                    : const Image(
+                        image: AssetImage('assets/delSurBackground.jpeg')),
+              ),
+            ),
+            Positioned(
+              width: MediaQuery.of(context).size.width - 35,
+              //left: 20,
+              bottom: 9,
+              //right: 20,
+              child: Container(
+                height: 65,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  color: Colors.black.withOpacity(0.3),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Text(aviso.inmueble.descripcion, style: textStyle2),
+                  const SizedBox(height: 5),
+                  Row(
                     children: [
-                      Text("Aviso: ", style: textStyle),
-                      Text("Inmueble: ", style: textStyle),
-                      Text("Dirección: ", style: textStyle),
-                      Text("Valor: ", style: textStyle),
-                      Text("Tipo Operación: ", style: textStyle),
-                      Text("Estado Aviso:  ", style: textStyle),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(aviso.descripcion, style: textStyle),
-                      Text(aviso.inmueble.descripcion, style: textStyle),
-                      Text(
-                          "${aviso.inmueble.direccion.localidad.descripcion} ${aviso.inmueble.direccion.localidad.provincia.descripcion}",
-                          style: textStyle),
-                      Text(aviso.valor, style: textStyle),
-                      Text(aviso.tipoOperacion.descripcion, style: textStyle),
-                      Text(
-                        aviso.estadoAviso.descripcion,
-                        style: textStyle,
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: textStyle1.color,
                       ),
+                      Text("${aviso.inmueble.direccion.localidad.descripcion}.",
+                          style: textStyle1),
+                      const SizedBox(width: 10),
+                      Icon(
+                        Icons.sell_outlined,
+                        color: textStyle1.color,
+                      ),
+                      Text(aviso.tipoOperacion.descripcion, style: textStyle1),
                     ],
-                  ),
-                  const SizedBox(width: 5),
-                  Image.memory(
-                    base64Decode(aviso.inmueble.imagen[0].bytes),
-                  ),
+                  )
                 ],
               ),
             ),
-          ),
+            Positioned(
+              right: 20,
+              bottom: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("\$ ${aviso.valor}", style: textStyle2),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

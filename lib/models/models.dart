@@ -1,4 +1,14 @@
-export 'avisos_model.dart';
+export 'avisos_mock_model.dart';
 export 'estado_aviso_model.dart';
 export 'datos_sesion_model.dart';
 export 'usuario_model.dart';
+export 'aviso_model.dart';
+export 'aviso_contacto_model.dart';
+export 'cliente_model.dart';
+export 'inmueble_model.dart';
+export 'localidad_model.dart';
+export 'tipo_operacion_model.dart';
+export 'localidad_model.dart';
+export 'tipo_unidad_model.dart';
+export 'provincia_model.dart';
+export 'tipo_caracteristica_model.dart';

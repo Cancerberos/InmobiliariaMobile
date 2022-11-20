@@ -6,14 +6,14 @@ import 'dart:convert';
 
 import 'estado_aviso_model.dart';
 
-List<Aviso> avisosFromJson(String str) =>
-    List<Aviso>.from(json.decode(str).map((x) => Aviso.fromJson(x)));
+List<AvisoMock> avisosMockFromJson(String str) =>
+    List<AvisoMock>.from(json.decode(str).map((x) => AvisoMock.fromJson(x)));
 
-String avisosToJson(List<Aviso> data) =>
+String avisosToJson(List<AvisoMock> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Aviso {
-  Aviso({
+class AvisoMock {
+  AvisoMock({
     required this.id,
     required this.descripcion,
     required this.inmueble,
@@ -26,22 +26,22 @@ class Aviso {
 
   final String id;
   final String descripcion;
-  final Inmueble inmueble;
+  final InmuebleMock inmueble;
   final String valor;
-  final Provincia tipoOperacion;
+  final ProvinciaMock tipoOperacion;
   final String fechaInicio;
   final String fechaFin;
-  final EstadoAviso estadoAviso;
+  final EstadoAvisoMock estadoAviso;
 
-  factory Aviso.fromJson(Map<String, dynamic> json) => Aviso(
+  factory AvisoMock.fromJson(Map<String, dynamic> json) => AvisoMock(
         id: json["id"],
         descripcion: json["descripcion"],
-        inmueble: Inmueble.fromJson(json["inmueble"]),
+        inmueble: InmuebleMock.fromJson(json["inmueble"]),
         valor: json["valor"],
-        tipoOperacion: Provincia.fromJson(json["tipoOperacion"]),
+        tipoOperacion: ProvinciaMock.fromJson(json["tipoOperacion"]),
         fechaInicio: json["fechaInicio"],
         fechaFin: json["fechaFin"],
-        estadoAviso: EstadoAviso.fromJson(json["estadoAviso"]),
+        estadoAviso: EstadoAvisoMock.fromJson(json["estadoAviso"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -56,8 +56,8 @@ class Aviso {
       };
 }
 
-class Provincia {
-  Provincia({
+class ProvinciaMock {
+  ProvinciaMock({
     required this.id,
     required this.descripcion,
   });
@@ -65,7 +65,7 @@ class Provincia {
   final String id;
   final String descripcion;
 
-  factory Provincia.fromJson(Map<String, dynamic> json) => Provincia(
+  factory ProvinciaMock.fromJson(Map<String, dynamic> json) => ProvinciaMock(
         id: json["id"],
         descripcion: json["descripcion"],
       );
@@ -76,8 +76,29 @@ class Provincia {
       };
 }
 
-class Inmueble {
-  Inmueble({
+class EstadoAvisoMock {
+  EstadoAvisoMock({
+    required this.descripcion,
+    required this.id,
+  });
+
+  final String descripcion;
+  final String id;
+
+  factory EstadoAvisoMock.fromJson(Map<String, dynamic> json) =>
+      EstadoAvisoMock(
+        descripcion: json["descripcion"],
+        id: json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "descripcion": descripcion,
+        "id": id,
+      };
+}
+
+class InmuebleMock {
+  InmuebleMock({
     required this.id,
     required this.imagen,
     required this.cliente,
@@ -88,22 +109,22 @@ class Inmueble {
   });
 
   final String id;
-  final List<Imagen> imagen;
-  final Cliente cliente;
+  final List<ImagenMock> imagen;
+  final ClienteMock cliente;
   final String descripcion;
   final String fechaExclusividad;
   final String tipoUnidad;
-  final Direccion direccion;
+  final DireccionMock direccion;
 
-  factory Inmueble.fromJson(Map<String, dynamic> json) => Inmueble(
+  factory InmuebleMock.fromJson(Map<String, dynamic> json) => InmuebleMock(
         id: json["id"],
-        imagen:
-            List<Imagen>.from(json["imagen"].map((x) => Imagen.fromJson(x))),
-        cliente: Cliente.fromJson(json["cliente"]),
+        imagen: List<ImagenMock>.from(
+            json["imagen"].map((x) => ImagenMock.fromJson(x))),
+        cliente: ClienteMock.fromJson(json["cliente"]),
         descripcion: json["descripcion"],
         fechaExclusividad: json["fechaExclusividad"],
         tipoUnidad: json["tipoUnidad"],
-        direccion: Direccion.fromJson(json["direccion"]),
+        direccion: DireccionMock.fromJson(json["direccion"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -117,8 +138,8 @@ class Inmueble {
       };
 }
 
-class Cliente {
-  Cliente({
+class ClienteMock {
+  ClienteMock({
     required this.id,
     required this.direccion,
     required this.nombre,
@@ -128,15 +149,15 @@ class Cliente {
   });
 
   final String id;
-  final Direccion direccion;
+  final DireccionMock direccion;
   final String nombre;
   final String apellido;
   final String email;
   final String telefono;
 
-  factory Cliente.fromJson(Map<String, dynamic> json) => Cliente(
+  factory ClienteMock.fromJson(Map<String, dynamic> json) => ClienteMock(
         id: json["id"],
-        direccion: Direccion.fromJson(json["direccion"]),
+        direccion: DireccionMock.fromJson(json["direccion"]),
         nombre: json["nombre"],
         apellido: json["apellido"],
         email: json["email"],
@@ -153,8 +174,8 @@ class Cliente {
       };
 }
 
-class Direccion {
-  Direccion({
+class DireccionMock {
+  DireccionMock({
     required this.id,
     required this.localidad,
     required this.numero,
@@ -166,7 +187,7 @@ class Direccion {
   });
 
   final String id;
-  final Localidad localidad;
+  final LocalidadMock localidad;
   final String numero;
   final String edificacion;
   final String piso;
@@ -174,9 +195,9 @@ class Direccion {
   final String latitud;
   final String longitud;
 
-  factory Direccion.fromJson(Map<String, dynamic> json) => Direccion(
+  factory DireccionMock.fromJson(Map<String, dynamic> json) => DireccionMock(
         id: json["id"],
-        localidad: Localidad.fromJson(json["localidad"]),
+        localidad: LocalidadMock.fromJson(json["localidad"]),
         numero: json["numero"],
         edificacion: json["edificacion"],
         piso: json["piso"],
@@ -197,8 +218,8 @@ class Direccion {
       };
 }
 
-class Localidad {
-  Localidad({
+class LocalidadMock {
+  LocalidadMock({
     required this.id,
     required this.provincia,
     required this.descripcion,
@@ -206,13 +227,13 @@ class Localidad {
   });
 
   final String id;
-  final Provincia provincia;
+  final ProvinciaMock provincia;
   final String descripcion;
   final String codigoPostal;
 
-  factory Localidad.fromJson(Map<String, dynamic> json) => Localidad(
+  factory LocalidadMock.fromJson(Map<String, dynamic> json) => LocalidadMock(
         id: json["id"],
-        provincia: Provincia.fromJson(json["provincia"]),
+        provincia: ProvinciaMock.fromJson(json["provincia"]),
         descripcion: json["descripcion"],
         codigoPostal: json["codigoPostal"],
       );
@@ -225,8 +246,8 @@ class Localidad {
       };
 }
 
-class Imagen {
-  Imagen({
+class ImagenMock {
+  ImagenMock({
     required this.id,
     required this.descripcion,
     required this.inmuebleId,
@@ -242,7 +263,7 @@ class Imagen {
   final String mimetype;
   final String bytes;
 
-  factory Imagen.fromJson(Map<String, dynamic> json) => Imagen(
+  factory ImagenMock.fromJson(Map<String, dynamic> json) => ImagenMock(
         id: json["id"],
         descripcion: json["descripcion"],
         inmuebleId: json["inmueble_id"],
