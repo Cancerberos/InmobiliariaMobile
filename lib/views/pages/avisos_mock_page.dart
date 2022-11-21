@@ -73,7 +73,7 @@ class AvisosPage extends StatelessWidget {
     return Column(
       children: [
         const Divider(height: 1),
-        InfoAviso(aviso: avisosController.avisosList2[index]),
+        InfoAviso(aviso: avisosController.avisosList[index]),
         const Divider(height: 1),
       ],
     );

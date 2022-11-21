@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:inmobiliaria/models/avisos_mock_model.dart';
+
+import '../../models/models.dart';
 
 class AvisoDetalle extends StatelessWidget {
   const AvisoDetalle({required this.aviso, Key? key}) : super(key: key);
 
-  final AvisoMock aviso;
+  final Aviso aviso;
 
   final textStyle = const TextStyle(
     fontSize: 20,
@@ -45,14 +46,17 @@ class AvisoDetalle extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(aviso.descripcion, style: textStyle),
-                    Text(aviso.inmueble.descripcion, style: textStyle),
+                    Text(aviso.title.toString(), style: textStyle),
+                    Text(aviso.inmueble!.title.toString(), style: textStyle),
                     Text(
-                        "${aviso.inmueble.direccion.localidad.descripcion} ${aviso.inmueble.direccion.localidad.provincia.descripcion}",
+                        "${aviso.inmueble!.localidad!.descripcion} ${aviso.inmueble!.prov}",
                         style: textStyle),
-                    Text(aviso.valor, style: textStyle, softWrap: true),
-                    Text(aviso.tipoOperacion.descripcion, style: textStyle),
-                    Text(aviso.estadoAviso.descripcion, style: textStyle),
+                    Text(aviso.valor.toString(),
+                        style: textStyle, softWrap: true),
+                    Text(aviso.tipoOperacion!.descripcion.toString(),
+                        style: textStyle),
+                    Text(aviso.estadoAviso!.descripcion.toString(),
+                        style: textStyle),
                   ],
                 ),
               ],

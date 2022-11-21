@@ -14,6 +14,7 @@ class AvisosController extends GetxController {
   @override
   void onInit() {
     fetchAvisos();
+
     generarListaAvisos();
     super.onInit();
   }
@@ -25,7 +26,29 @@ class AvisosController extends GetxController {
       avisosList = avisos;
     } finally {
       isLoading(false);
+      fetchInmuebleAviso();
     }
+  }
+
+  void fetchInmuebleAviso() async {
+    try {
+      for (var aviso in avisosList) {
+        aviso.inmueble =
+            await _remoteServices.getInmueble(aviso.inmueble?.href);
+      }
+    } finally {
+      fetchImagenesInmueble();
+    }
+  }
+
+  void fetchImagenesInmueble() async {
+    try {
+      for (var aviso in avisosList) {
+        for (var imagen in aviso.inmueble!.imagen!) {
+          imagen.imagenDetalle = imagenDelleFromJson(imagen.url);
+        }
+      }
+    } finally {}
   }
 
   //MOCK DATA

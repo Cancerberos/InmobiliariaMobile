@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inmobiliaria/models/avisos_mock_model.dart';
 import 'package:inmobiliaria/views/pages/aviso_detalle_page.dart';
+
+import '../../models/models.dart';
 
 class InfoAviso extends StatelessWidget {
   const InfoAviso({Key? key, required this.aviso}) : super(key: key);
@@ -19,7 +20,7 @@ class InfoAviso extends StatelessWidget {
       color: Colors.white,
       fontWeight: FontWeight.bold);
 
-  final AvisoMock aviso;
+  final Aviso aviso;
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +41,11 @@ class InfoAviso extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: (aviso.inmueble.imagen.isNotEmpty)
+                child: (aviso.inmueble!.imagen!.isNotEmpty)
                     ? Image.memory(
-                        base64Decode(aviso.inmueble.imagen[0].bytes),
+                        base64Decode(aviso
+                            .inmueble!.imagen![0].imagenDetalle!.bytes
+                            .toString()),
                         fit: BoxFit.fill,
                       )
                     : const Image(
@@ -68,7 +71,8 @@ class InfoAviso extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(aviso.inmueble.descripcion, style: textStyle2),
+                  Text(aviso.inmueble!.descripcion.toString(),
+                      style: textStyle2),
                   const SizedBox(height: 5),
                   Row(
                     children: [
@@ -76,14 +80,15 @@ class InfoAviso extends StatelessWidget {
                         Icons.location_on_outlined,
                         color: textStyle1.color,
                       ),
-                      Text("${aviso.inmueble.direccion.localidad.descripcion}.",
+                      Text("${aviso.inmueble!.localidad!.title}.",
                           style: textStyle1),
                       const SizedBox(width: 10),
                       Icon(
                         Icons.sell_outlined,
                         color: textStyle1.color,
                       ),
-                      Text(aviso.tipoOperacion.descripcion, style: textStyle1),
+                      Text(aviso.tipoOperacion!.title.toString(),
+                          style: textStyle1),
                     ],
                   )
                 ],

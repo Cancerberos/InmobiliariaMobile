@@ -9,7 +9,7 @@ Color _formElementsColor = const Color.fromARGB(255, 3, 35, 62);
 Color _formElementsColor2 = const Color.fromARGB(255, 137, 193, 238);
 AvisoContactoController _avisoContactoController =
     Get.put(AvisoContactoController());
-Future avisoContacto(AvisoMock aviso, BuildContext context) => showDialog(
+Future avisoContacto(Aviso aviso, BuildContext context) => showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Ingrese su consulta: '),
@@ -138,7 +138,7 @@ Future avisoContacto(AvisoMock aviso, BuildContext context) => showDialog(
       ),
     );
 
-void showConfirmationSnackBar(AvisoMock aviso, BuildContext context,
+void showConfirmationSnackBar(Aviso aviso, BuildContext context,
     AvisoContactoController avisoContactoController) {
   final snackBar = SnackBar(
     content: Text(

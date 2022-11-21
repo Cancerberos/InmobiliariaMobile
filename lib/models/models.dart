@@ -12,3 +12,5 @@ export 'localidad_model.dart';
 export 'tipo_unidad_model.dart';
 export 'provincia_model.dart';
 export 'tipo_caracteristica_model.dart';
+export 'imagen_model.dart';
+export 'imagen_detalle_model.dart';

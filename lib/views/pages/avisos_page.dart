@@ -55,7 +55,7 @@ class AvisosPage extends StatelessWidget {
               } else {
                 return ListView.builder(
                   padding: const EdgeInsets.all(5),
-                  itemCount: avisosController.avisosList2.length,
+                  itemCount: avisosController.avisosList.length,
                   itemBuilder: (context, index) {
                     return buildCard(index);
                   },
@@ -73,7 +73,7 @@ class AvisosPage extends StatelessWidget {
     return Column(
       children: [
         const Divider(height: 1),
-        InfoAviso(aviso: avisosController.avisosList2[index]),
+        InfoAviso(aviso: avisosController.avisosList[index]),
         const Divider(height: 1),
       ],
     );

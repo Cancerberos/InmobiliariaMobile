@@ -26,8 +26,8 @@ class Aviso {
 
   final int? avisoId;
   final String? descripcion;
-  final Inmueble? inmueble;
-  final int? valor;
+  Inmueble? inmueble;
+  final double? valor;
   final TipoOperacion? tipoOperacion;
   final DateTime? fechaInicio;
   final DateTime? fechaFin;

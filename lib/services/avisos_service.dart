@@ -1,10 +1,7 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/status/http_status.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../models/models.dart';
 
@@ -48,8 +45,38 @@ class AvisosServices extends GetConnect {
     var response = await client.get(Uri.parse(getAvisosUrl), headers: headers);
 
     if (response.statusCode == 200) {
-      final jsonString = response.body;
-      return avisoFromJson(jsonString);
+      final responseAvisos = response.body;
+      return avisoFromJson(responseAvisos);
+    } else {
+      throw Exception('Failed to load ...');
+    }
+  }
+
+  Future<Inmueble> getInmueble(String? href) async {
+    final urlMethod = href?.substring((href.indexOf("restful")) - 1);
+    final getInmuebleUrl = ('$urlBase$urlMethod');
+
+    var response =
+        await client.get(Uri.parse(getInmuebleUrl), headers: headers);
+
+    if (response.statusCode == 200) {
+      final responseInmueble = response.body;
+      return inmuebleFromJson(responseInmueble);
+    } else {
+      throw Exception('Failed to load ...');
+    }
+  }
+
+  Future<List<Imagen>> getImagenes(String? href) async {
+    final urlMethod = href?.substring((href.indexOf("restful")) - 1);
+    final getInmuebleUrl = ('$urlBase$urlMethod');
+
+    var response =
+        await client.get(Uri.parse(getInmuebleUrl), headers: headers);
+
+    if (response.statusCode == 200) {
+      final responseImagen = response.body;
+      return imagenesFromJson(responseImagen);
     } else {
       throw Exception('Failed to load ...');
     }

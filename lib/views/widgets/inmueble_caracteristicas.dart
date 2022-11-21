@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:inmobiliaria/models/avisos_mock_model.dart';
+
+import '../../models/models.dart';
 
 class InmuebleCaracteristicas extends StatelessWidget {
   const InmuebleCaracteristicas({Key? key, required this.aviso})
       : super(key: key);
 
-  final AvisoMock aviso;
+  final Aviso aviso;
 
   final textStyle = const TextStyle(
     fontSize: 20,

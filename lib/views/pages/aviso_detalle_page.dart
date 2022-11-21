@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inmobiliaria/models/avisos_mock_model.dart';
 import 'package:inmobiliaria/views/pages/avisos_mock_page.dart';
 
+import '../../models/models.dart';
 import '../dialogs/aviso_contacto.dart';
 import '../widgets/widgets.dart';
 
 class AvisoDetallePage extends StatelessWidget {
   const AvisoDetallePage({required this.aviso, Key? key}) : super(key: key);
 
-  final AvisoMock aviso;
+  final Aviso aviso;
   final textStyle = const TextStyle(
     fontSize: 20,
     overflow: TextOverflow.ellipsis,
@@ -35,7 +35,7 @@ class AvisoDetallePage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Text(aviso.inmueble.descripcion),
+            title: Text(aviso.inmueble!.descripcion.toString()),
             centerTitle: false,
             titleTextStyle: const TextStyle(
               color: Color.fromARGB(255, 6, 43, 107),
@@ -66,7 +66,7 @@ class AvisoDetallePage extends StatelessWidget {
           body: ListView(
             children: [
               const SizedBox(height: 8),
-              if (aviso.inmueble.imagen.isNotEmpty)
+              if (aviso.inmueble!.imagen!.isNotEmpty)
                 ImageCarousel(aviso)
               else
                 const Image(image: AssetImage('assets/delSurBackground.jpeg')),
