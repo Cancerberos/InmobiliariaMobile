@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inmobiliaria/views/pages/avisos_mock_page.dart';
 
 import '../../controllers/controllers.dart';
+import 'pages.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);

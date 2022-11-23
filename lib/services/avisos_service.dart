@@ -8,6 +8,7 @@ import '../models/models.dart';
 class AvisosServices extends GetConnect {
   var storage = GetStorage();
   final urlBase = "http://10.0.2.2:8080";
+  //final urlBase = "http://localhost:8080";
   static var client = http.Client();
   var headers = {
     'authorization': 'Basic ${base64Encode(utf8.encode('sven:pass'))}',
@@ -80,5 +81,39 @@ class AvisosServices extends GetConnect {
     } else {
       throw Exception('Failed to load ...');
     }
+  }
+
+  // Future<AvisoContacto> addAvisoContacto(AvisoContacto avisoContacto) async {
+  //   const urlMethod =
+  //       "/services/simple.AvisoContactoAdd/actions/AddAvisoContacto/invoke";
+  //   final putAvisoContactoUrl = ('$urlBase$urlMethod');
+  //   final response = await http.put(
+  //     Uri.parse(putAvisoContactoUrl),
+  //     headers: headers,
+  //     body: {
+  //       avisoContacto.toJson(),
+  //     },
+  //   );
+  //   if (response.statusCode == 200) {
+  //     String responseAvisoContacto = response.body;
+  //     return avisoContactoFromJson(responseAvisoContacto);
+  //   } else {
+  //     throw Exception('Failed to load info');
+  //   }
+  // }
+
+  Future<AvisoContacto> addAvisoContacto(AvisoContacto avisoContacto) async {
+    const urlMethod =
+        "/restful/services/simple.AvisoContactoAdd/actions/AddAvisoContacto/invoke";
+    final putAvisoContactoUrl = ('$urlBase$urlMethod');
+    final response = await http.put(
+      Uri.parse(putAvisoContactoUrl),
+      headers: headers,
+      body: json.encode(avisoContacto),
+    );
+
+    //TODO error 404
+    //String responseAvisoContacto = response.body;
+    return avisoContacto;
   }
 }

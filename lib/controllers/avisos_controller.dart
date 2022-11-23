@@ -14,7 +14,6 @@ class AvisosController extends GetxController {
   @override
   void onInit() {
     fetchAvisos();
-
     generarListaAvisos();
     super.onInit();
   }
@@ -25,8 +24,8 @@ class AvisosController extends GetxController {
       var avisos = await _remoteServices.getAvisos();
       avisosList = avisos;
     } finally {
-      isLoading(false);
       fetchInmuebleAviso();
+      isLoading(false);
     }
   }
 

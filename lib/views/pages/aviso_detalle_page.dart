@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inmobiliaria/views/pages/avisos_mock_page.dart';
+import 'package:inmobiliaria/views/pages/pages.dart';
 
 import '../../models/models.dart';
 import '../dialogs/aviso_contacto.dart';

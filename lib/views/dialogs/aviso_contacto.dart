@@ -9,6 +9,7 @@ Color _formElementsColor = const Color.fromARGB(255, 3, 35, 62);
 Color _formElementsColor2 = const Color.fromARGB(255, 137, 193, 238);
 AvisoContactoController _avisoContactoController =
     Get.put(AvisoContactoController());
+
 Future avisoContacto(Aviso aviso, BuildContext context) => showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -99,7 +100,7 @@ Future avisoContacto(Aviso aviso, BuildContext context) => showDialog(
                 maxLength: 120,
                 minLines: 5,
                 maxLines: 5,
-                controller: _avisoContactoController.consultaController,
+                controller: _avisoContactoController.mensajeController,
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 style: TextStyle(
@@ -129,8 +130,37 @@ Future avisoContacto(Aviso aviso, BuildContext context) => showDialog(
         actions: [
           TextButton(
             onPressed: () {
-              showConfirmationSnackBar(
-                  aviso, context, _avisoContactoController);
+              try {
+                _avisoContactoController.consulta.value.apellido.value =
+                    _avisoContactoController.apellidoController.text
+                        .toUpperCase();
+
+                _avisoContactoController.consulta.value.nombre.value =
+                    _avisoContactoController.nombreController.text
+                        .toUpperCase();
+
+                _avisoContactoController.consulta.value.email.value =
+                    _avisoContactoController.emailController.text.toUpperCase();
+
+                _avisoContactoController.consulta.value.mensaje.value =
+                    _avisoContactoController.mensajeController.text
+                        .toUpperCase();
+
+                _avisoContactoController.consulta.value.aviso.value.href =
+                    _avisoContactoController.urlBase +
+                        _avisoContactoController.urlHrefAviso +
+                        aviso.avisoId.toString();
+
+                _avisoContactoController.consulta.value.aviso.value.type =
+                    _avisoContactoController.urlType;
+
+                _avisoContactoController.consulta.value.aviso.value.title =
+                    aviso.descripcion.toString();
+              } finally {
+                _avisoContactoController.putAvisoConsulta();
+                showConfirmationSnackBar(
+                    aviso, context, _avisoContactoController);
+              }
             },
             child: const Text('Enviar'),
           ),
@@ -151,5 +181,5 @@ void showConfirmationSnackBar(Aviso aviso, BuildContext context,
   _avisoContactoController.apellidoController.clear();
   _avisoContactoController.nombreController.clear();
   _avisoContactoController.emailController.clear();
-  _avisoContactoController.consultaController.clear();
+  _avisoContactoController.mensajeController.clear();
 }

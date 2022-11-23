@@ -46,17 +46,17 @@ class AvisoDetalle extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(aviso.title.toString(), style: textStyle),
-                    Text(aviso.inmueble!.title.toString(), style: textStyle),
+                    Text(aviso.descripcion.toString(), style: textStyle),
+                    Text(aviso.inmueble!.descripcion.toString(),
+                        style: textStyle),
                     Text(
-                        "${aviso.inmueble!.localidad!.descripcion} ${aviso.inmueble!.prov}",
+                        "${aviso.inmueble!.localidad!.title} ${aviso.inmueble!.prov}",
                         style: textStyle),
                     Text(aviso.valor.toString(),
                         style: textStyle, softWrap: true),
-                    Text(aviso.tipoOperacion!.descripcion.toString(),
+                    Text(aviso.tipoOperacion!.title.toString(),
                         style: textStyle),
-                    Text(aviso.estadoAviso!.descripcion.toString(),
-                        style: textStyle),
+                    Text(aviso.estadoAviso!.title.toString(), style: textStyle),
                   ],
                 ),
               ],
