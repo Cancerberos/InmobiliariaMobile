@@ -1,15 +1,20 @@
 import 'dart:convert';
 
-List<TipoCaracteristica> tipoCaracteristicaFromJson(String str) =>
+List<TipoCaracteristica> tipoCaracteristicasFromJson(String str) =>
     List<TipoCaracteristica>.from(
         json.decode(str).map((x) => TipoCaracteristica.fromJson(x)));
 
-String tipoCaracteristicaToJson(List<TipoCaracteristica> data) =>
+String tipoCaracteristicasToJson(List<TipoCaracteristica> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+TipoCaracteristica tipoCaracteristicaFromJson(String str) =>
+    TipoCaracteristica.fromJson(json.decode(str));
+
+String tipoCaracteristicaToJson(TipoCaracteristica data) =>
+    json.encode(data.toJson());
 
 class TipoCaracteristica {
   TipoCaracteristica({
-    this.descripcion,
     this.rel,
     this.href,
     this.method,
@@ -17,7 +22,6 @@ class TipoCaracteristica {
     this.title,
   });
 
-  final String? descripcion;
   final String? rel;
   final String? href;
   final String? method;
@@ -26,7 +30,6 @@ class TipoCaracteristica {
 
   factory TipoCaracteristica.fromJson(Map<String, dynamic> json) =>
       TipoCaracteristica(
-        descripcion: json["descripcion"],
         rel: json["rel"],
         href: json["href"],
         method: json["method"],
@@ -35,7 +38,6 @@ class TipoCaracteristica {
       );
 
   Map<String, dynamic> toJson() => {
-        "descripcion": descripcion,
         "rel": rel,
         "href": href,
         "method": method,

@@ -13,12 +13,6 @@ class LoginController extends GetxController {
   var usuario = UsuarioModel().obs;
   var isLoading = true.obs;
 
-  @override
-  void onInit() {
-    //getUserValidation();
-    super.onInit();
-  }
-
   void getUserValidation() async {
     try {
       isLoading(true);

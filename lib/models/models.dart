@@ -14,3 +14,4 @@ export 'provincia_model.dart';
 export 'tipo_caracteristica_model.dart';
 export 'imagen_model.dart';
 export 'imagen_detalle_model.dart';
+export 'inmueble_caracteristica_model.dart';

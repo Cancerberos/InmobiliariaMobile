@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 import 'package:inmobiliaria/views/pages/pages.dart';
 
 import '../../models/models.dart';
-import '../dialogs/aviso_contacto.dart';
 import '../widgets/widgets.dart';
 
-class AvisoDetallePage extends StatelessWidget {
-  const AvisoDetallePage({required this.aviso, Key? key}) : super(key: key);
+class InmuebleDetallePage extends StatelessWidget {
+  const InmuebleDetallePage({required this.inmueble, Key? key})
+      : super(key: key);
 
-  final Aviso aviso;
+  final Inmueble inmueble;
 
   final textStyle = const TextStyle(
     fontSize: 20,
@@ -36,7 +36,7 @@ class AvisoDetallePage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Text(aviso.inmueble!.descripcion.toString()),
+            title: Text(inmueble.descripcion.toString()),
             centerTitle: false,
             titleTextStyle: const TextStyle(
               color: Color.fromARGB(255, 6, 43, 107),
@@ -47,7 +47,7 @@ class AvisoDetallePage extends StatelessWidget {
             leading: IconButton(
               color: const Color.fromARGB(255, 6, 43, 107),
               onPressed: () {
-                Get.to(() => AvisosPage());
+                Get.to(() => HomePage());
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -67,21 +67,23 @@ class AvisoDetallePage extends StatelessWidget {
           body: ListView(
             children: [
               const SizedBox(height: 8),
-              if (aviso.inmueble!.imagen!.isNotEmpty)
-                ImageCarousel(aviso.inmueble!)
-              else
-                const Image(image: AssetImage('assets/delSurBackground.jpeg')),
+              // if (inmueble.imagen!.isNotEmpty)
+              //   ImageCarousel(inmueble)
+              // else
+              //   const Image(image: AssetImage('assets/delSurBackground.jpeg')),
               const SizedBox(height: 8),
-              AvisoDetalle(aviso: aviso),
-              InmuebleCaracteristicas(aviso: aviso),
-              InmuebleMapa(inmueble: aviso.inmueble!),
+              InmuebleDetalle(inmueble: inmueble),
+              //InmuebleCaracteristicas(aviso: aviso),
+              InmuebleMapa(inmueble: inmueble),
               const Divider(height: 50)
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => avisoContacto(aviso, context),
-            tooltip: 'Formulario para consulta de Aviso.',
-            child: const Icon(Icons.question_answer),
+            onPressed: () => Get.to(() => InmuebleEditarPage(
+                  inmueble: inmueble,
+                )),
+            tooltip: 'Editar Inmueble',
+            child: const Icon(Icons.edit),
           ),
         ),
       ],

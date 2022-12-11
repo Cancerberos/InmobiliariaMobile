@@ -10,9 +10,9 @@ class InmuebleMapa extends StatelessWidget {
     MapController(),
   );
 
-  InmuebleMapa({required this.aviso, Key? key}) : super(key: key);
+  InmuebleMapa({required this.inmueble, Key? key}) : super(key: key);
 
-  final Aviso aviso;
+  final Inmueble inmueble;
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +31,27 @@ class InmuebleMapa extends StatelessWidget {
             zoomControlsEnabled: true,
             markers: <Marker>{
               Marker(
+                onDragEnd: (value) {
+                  inmueble.latitud = value.latitude.toString();
+                  inmueble.longitud = value.longitude.toString();
+                },
                 draggable: true,
                 markerId: const MarkerId("1"),
                 position: LatLng(
-                  double.parse(aviso.inmueble!.latitud.toString()),
-                  double.parse(aviso.inmueble!.longitud.toString()),
+                  double.parse(inmueble.latitud.toString()),
+                  double.parse(inmueble.longitud.toString()),
                 ),
                 icon: BitmapDescriptor.defaultMarker,
                 infoWindow: InfoWindow(
-                  title: aviso.inmueble!.descripcion,
+                  title: inmueble.descripcion,
                 ),
               )
             },
             mapType: MapType.satellite,
             initialCameraPosition: CameraPosition(
               target: LatLng(
-                double.parse(aviso.inmueble!.latitud.toString()),
-                double.parse(aviso.inmueble!.longitud.toString()),
+                double.parse(inmueble.latitud.toString()),
+                double.parse(inmueble.longitud.toString()),
               ),
               zoom: 15,
             ),

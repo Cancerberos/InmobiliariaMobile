@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:inmobiliaria/controllers/controllers.dart';
 
 import '../models/models.dart';
 import '../services/avisos_service.dart';
@@ -8,13 +9,13 @@ class AvisosController extends GetxController {
   var avisosList2 = [].obs;
   var index = 0.obs;
   var isLoading = true.obs;
-  //final AvisosServices remoteServices;
   final AvisosServices _remoteServices = Get.put(AvisosServices());
+  final HomeController _homeController = Get.put(HomeController());
 
   @override
   void onInit() {
     fetchAvisos();
-    generarListaAvisos();
+    //generarListaAvisos();
     super.onInit();
   }
 
@@ -25,7 +26,6 @@ class AvisosController extends GetxController {
       avisosList = avisos;
     } finally {
       fetchInmuebleAviso();
-      isLoading(false);
     }
   }
 
@@ -45,6 +45,37 @@ class AvisosController extends GetxController {
       for (var aviso in avisosList) {
         for (var imagen in aviso.inmueble!.imagen!) {
           imagen.imagenDetalle = imagenDelleFromJson(imagen.url);
+        }
+      }
+    } finally {
+      isLoading(false);
+      fetchInmuebleCaracteristica();
+    }
+  }
+
+  void fetchInmuebleCaracteristica() async {
+    try {
+      for (var aviso in avisosList) {
+        for (var inmuebleCaracteristica in aviso.inmueble!.inmueble!) {
+          inmuebleCaracteristica = await _remoteServices.getInmuebleCaracteristica(
+              '/restful/objects/${inmuebleCaracteristica.logicalTypeName}/${inmuebleCaracteristica.objectIdentifier}');
+          inmuebleCaracteristica.tipoCaracteristica =
+              await _remoteServices.getTipoCaracteristica(
+                  inmuebleCaracteristica.tipoCaracteristica?.href);
+        }
+      }
+    } finally {
+      _homeController.onInit();
+    }
+  }
+
+  void fetchTipoCaracteristica() async {
+    try {
+      for (var aviso in avisosList) {
+        for (var inmuebleCaracteristica in aviso.inmueble!.inmueble!) {
+          inmuebleCaracteristica.tipoCaracteristica =
+              await _remoteServices.getTipoCaracteristica(
+                  inmuebleCaracteristica.tipoCaracteristica?.href);
         }
       }
     } finally {}

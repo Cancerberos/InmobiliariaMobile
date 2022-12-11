@@ -1,6 +1,7 @@
-export 'aviso_card.dart';
-export 'background_image.dart';
-export 'aviso_detalle.dart';
-export 'inmueble_caracteristicas.dart';
-export 'inmueble_mapa.dart';
-export 'image_carousel.dart';
+export 'aviso_card_widget.dart';
+export 'background_image_widget.dart';
+export 'aviso_detalle_widget.dart';
+export 'inmueble_caracteristicas_widget.dart';
+export 'inmueble_mapa_widget.dart';
+export 'image_carousel_widget.dart';
+export 'inmueble_detalle_widge.dart';

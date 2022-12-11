@@ -7,6 +7,7 @@ import '../models/models.dart';
 
 class AvisosServices extends GetConnect {
   var storage = GetStorage();
+  //final urlBase = "http://webinmobiliaria.us-east-1.elasticbeanstalk.com";
   final urlBase = "http://10.0.2.2:8080";
   //final urlBase = "http://localhost:8080";
   static var client = http.Client();
@@ -14,30 +15,6 @@ class AvisosServices extends GetConnect {
     'authorization': 'Basic ${base64Encode(utf8.encode('sven:pass'))}',
     "Accept": "application/json;profile=urn:org.apache.isis/v2;suppress=all"
   };
-
-  // var headers = {
-  //   'Accept': 'application/json;profile=urn:org.apache.isis/v2;suppress=all',
-  //   'Authorization': 'Basic c3ZlbjpwYXNz'
-  // };
-
-  // Future<UsuarioModel?> getUserValidation(
-  //   TextEditingController usernameController,
-  //   TextEditingController passwordController,
-  // ) async {
-  //   // final getUsuarioUrl =
-  //   //     ('$urlBase/restful/services/simple.UsuarioRepositorio/actions/userValidation/invoke?username=${usernameController.text}&password=${passwordController.text}');
-  //   final getUsuarioUrl =
-  //       ('$urlBase/restful/services/simple.UsuarioRepositorio/actions/userValidation/invoke?username=Admin&password=fantasma');
-
-  //   final response =
-  //       await client.get(Uri.parse(getUsuarioUrl), headers: headers);
-
-  //   if (response.statusCode == HttpStatus.ok) {
-  //     return usuarioFromJson(response.body);
-  //   } else {
-  //     return throw Exception('Failed to load ...');
-  //   }
-  // }
 
   Future<List<Aviso>> getAvisos() async {
     final getAvisosUrl =
@@ -83,30 +60,37 @@ class AvisosServices extends GetConnect {
     }
   }
 
-  // Future<AvisoContacto> addAvisoContacto(AvisoContacto avisoContacto) async {
-  //   const urlMethod =
-  //       "/services/simple.AvisoContactoAdd/actions/AddAvisoContacto/invoke";
-  //   final putAvisoContactoUrl = ('$urlBase$urlMethod');
-  //   final response = await http.put(
-  //     Uri.parse(putAvisoContactoUrl),
-  //     headers: headers,
-  //     body: {
-  //       avisoContacto.toJson(),
-  //     },
-  //   );
-  //   if (response.statusCode == 200) {
-  //     String responseAvisoContacto = response.body;
-  //     return avisoContactoFromJson(responseAvisoContacto);
-  //   } else {
-  //     throw Exception('Failed to load info');
-  //   }
-  // }
+  Future<InmuebleCaracteristica> getInmuebleCaracteristica(String? href) async {
+    final getInmuebleUrl = ('$urlBase$href');
+
+    var response =
+        await client.get(Uri.parse(getInmuebleUrl), headers: headers);
+
+    if (response.statusCode == 200) {
+      final responseInmuebleCaracteristicas = response.body;
+      return inmuebleCaracteristicaFromJson(responseInmuebleCaracteristicas);
+    } else {
+      throw Exception('Failed to load ...');
+    }
+  }
+
+  Future<TipoCaracteristica> getTipoCaracteristica(String? href) async {
+    var response = await client.get(Uri.parse(href!), headers: headers);
+
+    if (response.statusCode == 200) {
+      final responseTipoCaracteristica = response.body;
+      return tipoCaracteristicaFromJson(responseTipoCaracteristica);
+    } else {
+      throw Exception('Failed to load ...');
+    }
+  }
 
   Future<AvisoContacto> addAvisoContacto(AvisoContacto avisoContacto) async {
     const urlMethod =
         "/restful/services/simple.AvisoContactoAdd/actions/AddAvisoContacto/invoke";
     final putAvisoContactoUrl = ('$urlBase$urlMethod');
-    final response = await http.put(
+    //final response =
+    await http.put(
       Uri.parse(putAvisoContactoUrl),
       headers: headers,
       body: json.encode(avisoContacto),
@@ -115,5 +99,40 @@ class AvisosServices extends GetConnect {
     //TODO error 404
     //String responseAvisoContacto = response.body;
     return avisoContacto;
+  }
+
+  Future<List<Inmueble>> getInmuebles() async {
+    final getAvisosUrl =
+        ('$urlBase/restful/services/simple.InmuebleRepositorio/actions/listAll/invoke');
+
+    var response = await client.post(Uri.parse(getAvisosUrl),
+        headers: headers, body: "{}");
+
+    if (response.statusCode == 200) {
+      final responseAvisos = response.body;
+      return inmueblesFromJson(responseAvisos);
+    } else {
+      throw Exception('Failed to load ...');
+    }
+  }
+
+  Future<EditarInmueble> editInmuebleBase(
+      EditarInmueble inmueble /*, String hrefInmueble*/) async {
+    const urlMethod =
+        "/restful/objects/simple.inmueble/4/actions/UpdateDatosProncipales/invoke";
+    final editInmuebleBaseUrl = ('$urlBase$urlMethod');
+    final response = await http.put(
+      Uri.parse(editInmuebleBaseUrl),
+      headers: headers,
+      body: json.encode(inmueble),
+    );
+
+    if (response.statusCode == 200) {
+      //final responseEditInmuebleBase = response.body;
+      //return editarInmuebleFromJson(responseEditInmuebleBase);
+      return inmueble;
+    } else {
+      throw Exception('Failed to load ...');
+    }
   }
 }

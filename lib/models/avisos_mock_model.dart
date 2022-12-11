@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import 'estado_aviso_model.dart';
-
 List<AvisoMock> avisosMockFromJson(String str) =>
     List<AvisoMock>.from(json.decode(str).map((x) => AvisoMock.fromJson(x)));
 
