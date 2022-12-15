@@ -45,3 +45,44 @@ class Imagen {
         "datanucleusVersionTimestamp": datanucleusVersionTimestamp,
       };
 }
+
+AgregarImagen agregarImagenFromJson(String str) =>
+    AgregarImagen.fromJson(json.decode(str));
+
+String agregarImagenToJson(AgregarImagen data) => json.encode(data.toJson());
+
+class AgregarImagen {
+  AgregarImagen({
+    this.descripcion,
+    this.url,
+  });
+
+  ImagenValue? descripcion;
+  ImagenValue? url;
+
+  factory AgregarImagen.fromJson(Map<String, dynamic> json) => AgregarImagen(
+        descripcion: ImagenValue.fromJson(json["descripcion"]),
+        url: ImagenValue.fromJson(json["url"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "descripcion": descripcion?.toJson(),
+        "url": url?.toJson(),
+      };
+}
+
+class ImagenValue {
+  ImagenValue({
+    this.value,
+  });
+
+  String? value;
+
+  factory ImagenValue.fromJson(Map<String, dynamic> json) => ImagenValue(
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "value": value,
+      };
+}

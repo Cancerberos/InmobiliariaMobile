@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:inmobiliaria/views/dialogs/login_dialog.dart';
 import 'package:inmobiliaria/views/pages/home_page.dart';
 
 import '../../controllers/avisos_controller.dart';
@@ -8,6 +10,7 @@ import '../widgets/widgets.dart';
 class AvisosPage extends StatelessWidget {
   AvisosPage({Key? key}) : super(key: key);
 
+  final storage = GetStorage();
   final AvisosController avisosController = Get.put(AvisosController());
 
   @override
@@ -23,7 +26,12 @@ class AvisosPage extends StatelessWidget {
             leading: IconButton(
               color: const Color.fromARGB(255, 6, 43, 107),
               onPressed: () {
-                Get.to(() => HomePage());
+                //print(storage.read("ADMIN"));
+                if (storage.read("ADMIN") == true) {
+                  Get.to(() => HomePage());
+                } else {
+                  loginDialog(context);
+                }
               },
               icon: const Icon(
                 Icons.home,

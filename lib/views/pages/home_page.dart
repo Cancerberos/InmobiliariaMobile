@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../controllers/controllers.dart';
 import 'pages.dart';
@@ -9,10 +10,8 @@ import 'pages.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final LoginController _loginController = Get.put(LoginController());
   final HomeController _homeController = Get.put(HomeController());
-  final isPasswordHidden = LoginController().isPasswordHidden;
-
+  final storage = GetStorage();
   final titleTextStyle = const TextStyle(
     fontSize: 20,
     overflow: TextOverflow.ellipsis,
@@ -30,99 +29,47 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inmobiliaria Del Sur'),
-      ),
-      body: Obx(
-        () => SingleChildScrollView(
-          child: Column(
-            children: [
-              Form(
-                child: Column(
-                  children: [
-                    avisosListButton(),
-                    TextFormField(
-                      controller: _loginController.usernameController,
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.black.withOpacity(0.1),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        hintText: 'Ingrese su Nombre',
-                        hintStyle: const TextStyle(color: Colors.black),
-                        labelText: 'Nombre',
-                        labelStyle: const TextStyle(color: Colors.black),
-                        suffixIcon: const Icon(
-                          Icons.person_add_alt_1_outlined,
-                          color: Colors.blueGrey,
-                        ),
-                      ),
-                    ),
-                    const Divider(),
-                    TextFormField(
-                      controller: _loginController.passwordController,
-                      obscureText: isPasswordHidden.value,
-                      textInputAction: TextInputAction.done,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.black.withOpacity(0.1),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        hintText: 'Ingrese su contraseña',
-                        hintStyle: const TextStyle(color: Colors.black),
-                        labelText: 'Contraseña',
-                        labelStyle: const TextStyle(color: Colors.black),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            isPasswordHidden.value = !isPasswordHidden.value;
-                          },
-                          child: Icon(
-                            isPasswordHidden.value
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Colors.blueGrey,
-                          ),
-                        ),
-                      ),
-                    ),
-                    loginButton(),
-                    Obx(
-                      () {
-                        if (_homeController.isLoading.value) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else {
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.all(5),
-                            itemCount: _homeController.inmueblesList.length,
-                            itemBuilder: (context, index) {
-                              return buildCard(index, context);
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      appBar: AppBar(title: const Text('Inmobiliaria Del Sur'), actions: [
+        IconButton(
+          onPressed: () {
+            storage.erase();
+            Get.to(() => AvisosPage());
+          },
+          icon: const Icon(
+            Icons.logout,
+            color: Colors.white,
           ),
+        )
+      ]),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Form(
+              child: Column(
+                children: [
+                  avisosListButton(),
+                  Obx(
+                    () {
+                      if (_homeController.isLoading.value) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.all(5),
+                          itemCount: _homeController.inmueblesList.length,
+                          itemBuilder: (context, index) {
+                            return buildCard(index, context);
+                          },
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -134,15 +81,6 @@ class HomePage extends StatelessWidget {
         Get.to(() => AvisosPage());
       },
       child: const Text('Lista de aviso'),
-    );
-  }
-
-  loginButton() {
-    return ElevatedButton(
-      onPressed: () {
-        _loginController.getUserValidation();
-      },
-      child: const Text('Login'),
     );
   }
 

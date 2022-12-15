@@ -14,6 +14,20 @@ class AvisoDetalle extends StatelessWidget {
     fontWeight: FontWeight.bold,
   );
 
+  final titleTextStyle = const TextStyle(
+    fontSize: 20,
+    overflow: TextOverflow.ellipsis,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
+
+  final leadingTextStyle = const TextStyle(
+    fontSize: 12,
+    overflow: TextOverflow.ellipsis,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,44 +35,42 @@ class AvisoDetalle extends StatelessWidget {
       child: Card(
         color: const Color.fromARGB(255, 11, 54, 90).withOpacity(0.5),
         shadowColor: Colors.black54,
-        elevation: 20.0,
+        elevation: 10.0,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(1.0),
           child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
+            scrollDirection: Axis.vertical,
+            child: Column(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Aviso: ", style: textStyle),
-                    Text("Inmueble: ", style: textStyle),
-                    Text("Dirección: ", style: textStyle),
-                    Text("Valor: ", style: textStyle),
-                    Text("Tipo Operación: ", style: textStyle),
-                    Text("Estado Aviso:  ", style: textStyle),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(aviso.descripcion.toString(), style: textStyle),
-                    Text(aviso.inmueble!.descripcion.toString(),
-                        style: textStyle),
-                    Text(
+                ListTile(
+                    title: Text("Aviso: ", style: leadingTextStyle),
+                    subtitle: Text(aviso.descripcion.toString(),
+                        style: titleTextStyle)),
+                ListTile(
+                    title: Text("Inmueble: ", style: leadingTextStyle),
+                    subtitle: Text(aviso.inmueble!.descripcion.toString(),
+                        style: titleTextStyle)),
+                ListTile(
+                    title: Text("Dirección: ", style: leadingTextStyle),
+                    subtitle: Text(
                         "${aviso.inmueble!.localidad!.title} ${aviso.inmueble!.prov}",
-                        style: textStyle),
-                    Text(aviso.valor.toString(),
-                        style: textStyle, softWrap: true),
-                    Text(aviso.tipoOperacion!.title.toString(),
-                        style: textStyle),
-                    Text(aviso.estadoAviso!.title.toString(), style: textStyle),
-                  ],
-                ),
+                        style: titleTextStyle)),
+                ListTile(
+                    title: Text("Valor: ", style: leadingTextStyle),
+                    subtitle:
+                        Text(aviso.valor.toString(), style: titleTextStyle)),
+                ListTile(
+                    title: Text("Tipo Operación: ", style: leadingTextStyle),
+                    subtitle: Text(aviso.tipoOperacion!.title.toString(),
+                        style: titleTextStyle)),
+                ListTile(
+                    title: Text("Estado: ", style: leadingTextStyle),
+                    subtitle: Text(aviso.estadoAviso!.title.toString(),
+                        style: titleTextStyle)),
               ],
             ),
           ),

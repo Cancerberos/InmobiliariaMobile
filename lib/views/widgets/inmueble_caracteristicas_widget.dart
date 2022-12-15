@@ -65,30 +65,23 @@ class InmuebleCaracteristicas extends StatelessWidget {
   Widget generarIconoTipoCaracteristica(String? href) {
     var idTipo = (href?.substring((href.indexOf("TipoCaracteristica/")) + 19));
     Icon icon = const Icon(Icons.bathroom, color: Colors.white);
-
     if (idTipo == "2") {
       icon = const Icon(Icons.bedroom_parent, color: Colors.white);
-    } else if (idTipo == "4") {
+    } else if (idTipo == "3") {
       icon = const Icon(Icons.outdoor_grill, color: Colors.white);
-    } else if (idTipo == "5") {
+    } else if (idTipo == "4") {
       icon = const Icon(Icons.pool, color: Colors.white);
-    } else if (idTipo == "6") {
-      icon = const Icon(Icons.holiday_village, color: Colors.white);
-    } else if (idTipo == "7") {
+    } else if (idTipo == "5") {
       icon = const Icon(Icons.garage, color: Colors.white);
-    } else if (idTipo == "8") {
-      icon = const Icon(Icons.bedroom_parent, color: Colors.white);
-    } else if (idTipo == "9") {
-      icon = const Icon(Icons.calendar_month, color: Colors.white);
-    } else if (idTipo == "10") {
+    } else if (idTipo == "6") {
       icon = const Icon(Icons.wifi, color: Colors.white);
-    } else if (idTipo == "11") {
+    } else if (idTipo == "7") {
       icon = const Icon(Icons.tv, color: Colors.white);
-    } else if (idTipo == "12") {
+    } else if (idTipo == "8") {
       icon = const Icon(Icons.heat_pump, color: Colors.white);
-    } else if (idTipo == "13") {
+    } else if (idTipo == "9") {
       icon = const Icon(Icons.balcony, color: Colors.white);
-    } else if (idTipo == "14") {
+    } else if (idTipo == "10") {
       icon = const Icon(Icons.square_foot, color: Colors.white);
     }
     return icon;

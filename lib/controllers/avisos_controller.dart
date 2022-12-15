@@ -10,13 +10,18 @@ class AvisosController extends GetxController {
   var index = 0.obs;
   var isLoading = true.obs;
   final AvisosServices _remoteServices = Get.put(AvisosServices());
-  final HomeController _homeController = Get.put(HomeController());
+
+  // @override
+  // void onInit() {
+  //   fetchAvisos();
+
+  //   super.onInit();
+  // }
 
   @override
-  void onInit() {
+  void onReady() {
     fetchAvisos();
-    //generarListaAvisos();
-    super.onInit();
+    super.onReady();
   }
 
   void fetchAvisos() async {
@@ -65,7 +70,8 @@ class AvisosController extends GetxController {
         }
       }
     } finally {
-      _homeController.onInit();
+      final HomeController homeController = Get.put(HomeController());
+      homeController.onInit();
     }
   }
 

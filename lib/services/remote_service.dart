@@ -10,17 +10,15 @@ import '../models/models.dart';
 
 class RemoteServices extends GetConnect {
   var storage = GetStorage();
-  final urlBase = "http://10.0.2.2:8080";
+  //TODO Cambiar URL Base
+  final urlBase = "http://webinmobiliaria.us-east-1.elasticbeanstalk.com";
+
+  //final urlBase = "http://10.0.2.2:8080";
   static var client = http.Client();
   var headers = {
     'authorization': 'Basic ${base64Encode(utf8.encode('sven:pass'))}',
     "Accept": "application/json;profile=urn:org.apache.isis/v2;suppress=all"
   };
-
-  // var headers = {
-  //   'Accept': 'application/json;profile=urn:org.apache.isis/v2;suppress=all',
-  //   'Authorization': 'Basic c3ZlbjpwYXNz'
-  // };
 
   Future<UsuarioModel?> getUserValidation(
     TextEditingController usernameController,
@@ -28,8 +26,6 @@ class RemoteServices extends GetConnect {
   ) async {
     final getUsuarioUrl =
         ('$urlBase/restful/services/simple.UsuarioRepositorio/actions/userValidation/invoke?username=${usernameController.text}&password=${passwordController.text}');
-    // final getUsuarioUrl =
-    //     ('$urlBase/restful/services/simple.UsuarioRepositorio/actions/userValidation/invoke?username=Admin&password=fantasma');
 
     final response =
         await client.get(Uri.parse(getUsuarioUrl), headers: headers);
@@ -37,7 +33,10 @@ class RemoteServices extends GetConnect {
     if (response.statusCode == HttpStatus.ok) {
       return usuarioFromJson(response.body);
     } else {
-      return throw Exception('Failed to load ...');
+      return throw Get.snackbar('Error', 'Contactese con Inmobiliaria Del Sur',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white);
     }
   }
 

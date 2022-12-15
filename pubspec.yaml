@@ -40,6 +40,9 @@ dependencies:
   get_storage: ^2.0.3
   google_maps_flutter: ^2.1.10
   carousel_slider: ^4.1.1
+  image_picker: ^0.8.6
+  image_cropper: ^3.0.1
+  flutter_image_compress: ^1.0.0-nullsafety
 
 dev_dependencies:
   flutter_test:

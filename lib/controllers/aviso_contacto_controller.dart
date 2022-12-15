@@ -7,7 +7,8 @@ import '../services/avisos_service.dart';
 class AvisoContactoController extends GetxController {
   final AvisosServices _remoteServices = Get.put(AvisosServices());
   //TODO Cambiar URL Base
-  final urlBase = "http://10.0.2.2:8080";
+  final urlBase = "http://webinmobiliaria.us-east-1.elasticbeanstalk.com/";
+  //final urlBase = "http://10.0.2.2:8080";
   final urlHrefAviso = "/restful/objects/simple.aviso/";
   final urlType =
       "application/json;profile=\"urn:org.restfulobjects:repr-types/object\"";

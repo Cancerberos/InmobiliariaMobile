@@ -4,3 +4,4 @@ export 'aviso_contacto_controller.dart';
 export 'login_controller.dart';
 export 'home_controller.dart';
 export 'inmueble_editar_controller.dart';
+export 'image_picker_controller.dart';

@@ -7,8 +7,8 @@ import '../models/models.dart';
 
 class AvisosServices extends GetConnect {
   var storage = GetStorage();
-  //final urlBase = "http://webinmobiliaria.us-east-1.elasticbeanstalk.com";
-  final urlBase = "http://10.0.2.2:8080";
+  final urlBase = "http://webinmobiliaria.us-east-1.elasticbeanstalk.com";
+  //final urlBase = "http://10.0.2.2:8080";
   //final urlBase = "http://localhost:8080";
   static var client = http.Client();
   var headers = {
@@ -119,7 +119,7 @@ class AvisosServices extends GetConnect {
   Future<EditarInmueble> editInmuebleBase(
       EditarInmueble inmueble /*, String hrefInmueble*/) async {
     const urlMethod =
-        "/restful/objects/simple.inmueble/4/actions/UpdateDatosProncipales/invoke";
+        "/restful/objects/simple.inmueble/2/actions/UpdateDatosProncipales/invoke";
     final editInmuebleBaseUrl = ('$urlBase$urlMethod');
     final response = await http.put(
       Uri.parse(editInmuebleBaseUrl),
@@ -133,6 +133,29 @@ class AvisosServices extends GetConnect {
       return inmueble;
     } else {
       throw Exception('Failed to load ...');
+    }
+  }
+
+  Future<AgregarImagen> agregarImagen(
+      AgregarImagen imagen /*, String hrefInmueble*/) async {
+    const urlMethod =
+        "/restful/objects/simple.inmueble/2/actions/imagenAdd/invoke";
+    final agregarImagenUrl = ('$urlBase$urlMethod');
+    final response = await http.put(
+      Uri.parse(agregarImagenUrl),
+      headers: headers,
+      body: json.encode(imagen),
+    );
+    try {
+      if (response.statusCode == 200) {
+        //final responseAgregarImagen = response.body;
+        //return agregarImagenFromJson(responseAgregarImagen);
+        return imagen;
+      } else {
+        throw Exception('Failed to load ...');
+      }
+    } finally {
+      //Get.back();
     }
   }
 }

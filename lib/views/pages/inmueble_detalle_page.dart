@@ -11,6 +11,20 @@ class InmuebleDetallePage extends StatelessWidget {
 
   final Inmueble inmueble;
 
+  final titleTextStyle = const TextStyle(
+    fontSize: 20,
+    overflow: TextOverflow.ellipsis,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
+
+  final subTitleTextStyle = const TextStyle(
+    fontSize: 12,
+    overflow: TextOverflow.ellipsis,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
+
   final textStyle = const TextStyle(
     fontSize: 20,
     overflow: TextOverflow.ellipsis,
@@ -66,6 +80,71 @@ class InmuebleDetallePage extends StatelessWidget {
           ),
           body: ListView(
             children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                InkWell(
+                  onTap: (() {}),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Card(
+                      color: const Color.fromARGB(255, 11, 54, 90)
+                          .withOpacity(0.5),
+                      shadowColor: Colors.black54,
+                      elevation: 20.0,
+                      clipBehavior: Clip.antiAlias,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(
+                            children: [
+                              ListTile(
+                                title: Text("Características",
+                                    style: titleTextStyle),
+                                trailing: const Icon(Icons.attribution),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: (() =>
+                      Get.to(() => InmuebleImagenesPage(inmueble: inmueble))),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Card(
+                      color: const Color.fromARGB(255, 11, 54, 90)
+                          .withOpacity(0.5),
+                      shadowColor: Colors.black54,
+                      elevation: 20.0,
+                      clipBehavior: Clip.antiAlias,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(
+                            children: [
+                              ListTile(
+                                title: Text("Imágenes", style: titleTextStyle),
+                                trailing:
+                                    const Icon(Icons.picture_in_picture_alt),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
               const SizedBox(height: 8),
               // if (inmueble.imagen!.isNotEmpty)
               //   ImageCarousel(inmueble)

@@ -8,7 +8,9 @@ import '../views/pages/pages.dart';
 
 class InmuebleEditarController extends GetxController {
   //TODO Cambiar URL Base
-  final urlBase = "http://10.0.2.2:8080";
+  final urlBase = "http://webinmobiliaria.us-east-1.elasticbeanstalk.com/";
+
+  //final urlBase = "http://10.0.2.2:8080";
   final urlHrefTipoUnidadBase = "/restful/objects/inmobiliaria.TipoUnidad/";
   final urlHrefLocalidadBase = "/restful/objects/simple.localidad/";
   final urlHrefClienteBase = "/restful/objects/simple.cliente/";
