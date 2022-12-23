@@ -29,6 +29,7 @@ class InmuebleEditarController extends GetxController {
 
   final AvisosServices _remoteServices = Get.put(AvisosServices());
   final HomeController _homeController = Get.put(HomeController());
+
   var inmueble = EditarInmueble(
     altura: Altura(value: ""),
     calle: Calle(value: ""),
@@ -70,11 +71,11 @@ class InmuebleEditarController extends GetxController {
 
   var isLoading = true.obs;
 
-  void editarInmueble(/*hrefInmueble*/) async {
+  void editarInmueble(int? inmuebleid) async {
     try {
       isLoading(true);
-      var response = await _remoteServices
-          .editInmuebleBase(inmueble.value /*, hrefInmueble*/);
+      var response =
+          await _remoteServices.editInmuebleBase(inmueble.value, inmuebleid);
       inmueble.value = response;
     } finally {
       isLoading(false);

@@ -14,8 +14,11 @@ String inmueblesToJson(List<Inmueble> data) =>
 
 Inmueble inmuebleFromJson(String str) => Inmueble.fromJson(json.decode(str));
 
+String inmuebleToJson(Inmueble data) => json.encode(data.toJson());
+
 class Inmueble {
   Inmueble({
+    this.inmuebleid,
     this.descripcion,
     this.fechaExclusividad,
     this.calle,
@@ -40,6 +43,7 @@ class Inmueble {
     this.inmueble,
   });
 
+  int? inmuebleid;
   String? descripcion;
   DateTime? fechaExclusividad;
   String? calle;
@@ -64,6 +68,7 @@ class Inmueble {
   List<InmuebleCaracteristica>? inmueble;
 
   factory Inmueble.fromJson(Map<String, dynamic> json) => Inmueble(
+        inmuebleid: json["inmuebleid"] == null ? null : json["inmuebleid"],
         descripcion: json["descripcion"],
         fechaExclusividad: json["fechaExclusividad"] == null
             ? null
@@ -101,6 +106,7 @@ class Inmueble {
       );
 
   Map<String, dynamic> toJson() => {
+        "inmuebleid": inmuebleid,
         "descripcion": descripcion,
         "fechaExclusividad": fechaExclusividad?.toIso8601String(),
         "calle": calle,
@@ -138,32 +144,31 @@ String editarInmuebleToJson(EditarInmueble data) => json.encode(data.toJson());
 
 class EditarInmueble {
   EditarInmueble({
-    required this.descripcion,
-    required this.fechaExclusividad,
-    required this.calle,
-    required this.altura,
-    required this.edificacion,
-    required this.piso,
-    required this.departamento,
-    required this.latitud,
-    required this.longitud,
-    required this.localidad,
-    required this.tipoUnidad,
-    required this.cliente,
+    this.descripcion,
+    this.fechaExclusividad,
+    this.calle,
+    this.altura,
+    this.edificacion,
+    this.piso,
+    this.departamento,
+    this.latitud,
+    this.longitud,
+    this.localidad,
+    this.tipoUnidad,
+    this.cliente,
   });
-
-  Descripcion descripcion;
-  FechaExclusividad fechaExclusividad;
-  Calle calle;
-  Altura altura;
-  Edificacion edificacion;
-  Piso piso;
-  Departamento departamento;
-  Latitud latitud;
-  Longitud longitud;
-  LocalidadEditar localidad;
-  TipoUnidadEditar tipoUnidad;
-  ClienteEditar cliente;
+  Descripcion? descripcion;
+  FechaExclusividad? fechaExclusividad;
+  Calle? calle;
+  Altura? altura;
+  Edificacion? edificacion;
+  Piso? piso;
+  Departamento? departamento;
+  Latitud? latitud;
+  Longitud? longitud;
+  LocalidadEditar? localidad;
+  TipoUnidadEditar? tipoUnidad;
+  ClienteEditar? cliente;
 
   factory EditarInmueble.fromJson(Map<String, dynamic> json) => EditarInmueble(
         descripcion: Descripcion.fromJson(json["descripcion"]),
@@ -182,18 +187,34 @@ class EditarInmueble {
       );
 
   Map<String, dynamic> toJson() => {
-        "descripcion": descripcion.toJson(),
-        "fechaExclusividad": fechaExclusividad.toJson(),
-        "calle": calle.toJson(),
-        "altura": altura.toJson(),
-        "edificacion": edificacion.toJson(),
-        "piso": piso.toJson(),
-        "departamento": departamento.toJson(),
-        "latitud": latitud.toJson(),
-        "longitud": longitud.toJson(),
-        "localidad": localidad.toJson(),
-        "tipoUnidad": tipoUnidad.toJson(),
-        "cliente": cliente.toJson(),
+        "descripcion": descripcion?.toJson(),
+        "fechaExclusividad": fechaExclusividad?.toJson(),
+        "calle": calle?.toJson(),
+        "altura": altura?.toJson(),
+        "edificacion": edificacion?.toJson(),
+        "piso": piso?.toJson(),
+        "departamento": departamento?.toJson(),
+        "latitud": latitud?.toJson(),
+        "longitud": longitud?.toJson(),
+        "localidad": localidad?.toJson(),
+        "tipoUnidad": tipoUnidad?.toJson(),
+        "cliente": cliente?.toJson(),
+      };
+}
+
+class InmuebleId {
+  InmuebleId({
+    required this.value,
+  });
+
+  String value;
+
+  factory InmuebleId.fromJson(Map<String, dynamic> json) => InmuebleId(
+        value: json["value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "value": value,
       };
 }
 

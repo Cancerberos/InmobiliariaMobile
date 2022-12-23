@@ -57,7 +57,7 @@ class AvisoDetalle extends StatelessWidget {
                 ListTile(
                     title: Text("Dirección: ", style: leadingTextStyle),
                     subtitle: Text(
-                        "${aviso.inmueble!.localidad!.title} ${aviso.inmueble!.prov}",
+                        "${aviso.inmueble!.localidad!.title.toString()} ${aviso.inmueble!.prov}",
                         style: titleTextStyle)),
                 ListTile(
                     title: Text("Valor: ", style: leadingTextStyle),

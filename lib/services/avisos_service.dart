@@ -38,19 +38,19 @@ class AvisosServices extends GetConnect {
         await client.get(Uri.parse(getInmuebleUrl), headers: headers);
 
     if (response.statusCode == 200) {
-      final responseInmueble = response.body;
+      final responseInmueble = utf8.decode(response.bodyBytes);
       return inmuebleFromJson(responseInmueble);
     } else {
       throw Exception('Failed to load ...');
     }
   }
 
-  Future<List<Imagen>> getImagenes(String? href) async {
-    final urlMethod = href?.substring((href.indexOf("restful")) - 1);
-    final getInmuebleUrl = ('$urlBase$urlMethod');
+  Future<List<Imagen>> getImagenes(int? idInmueble) async {
+    final urlMethod =
+        '/restful/objects/simple.inmueble/$idInmueble/collections/imagen';
+    final getImagenUrl = ('$urlBase$urlMethod');
 
-    var response =
-        await client.get(Uri.parse(getInmuebleUrl), headers: headers);
+    var response = await client.get(Uri.parse(getImagenUrl), headers: headers);
 
     if (response.statusCode == 200) {
       final responseImagen = response.body;
@@ -67,7 +67,7 @@ class AvisosServices extends GetConnect {
         await client.get(Uri.parse(getInmuebleUrl), headers: headers);
 
     if (response.statusCode == 200) {
-      final responseInmuebleCaracteristicas = response.body;
+      final responseInmuebleCaracteristicas = utf8.decode(response.bodyBytes);
       return inmuebleCaracteristicaFromJson(responseInmuebleCaracteristicas);
     } else {
       throw Exception('Failed to load ...');
@@ -78,7 +78,7 @@ class AvisosServices extends GetConnect {
     var response = await client.get(Uri.parse(href!), headers: headers);
 
     if (response.statusCode == 200) {
-      final responseTipoCaracteristica = response.body;
+      final responseTipoCaracteristica = utf8.decode(response.bodyBytes);
       return tipoCaracteristicaFromJson(responseTipoCaracteristica);
     } else {
       throw Exception('Failed to load ...');
@@ -109,7 +109,7 @@ class AvisosServices extends GetConnect {
         headers: headers, body: "{}");
 
     if (response.statusCode == 200) {
-      final responseAvisos = response.body;
+      final responseAvisos = utf8.decode(response.bodyBytes);
       return inmueblesFromJson(responseAvisos);
     } else {
       throw Exception('Failed to load ...');
@@ -117,9 +117,9 @@ class AvisosServices extends GetConnect {
   }
 
   Future<EditarInmueble> editInmuebleBase(
-      EditarInmueble inmueble /*, String hrefInmueble*/) async {
-    const urlMethod =
-        "/restful/objects/simple.inmueble/2/actions/UpdateDatosProncipales/invoke";
+      EditarInmueble inmueble, int? inmuebleid) async {
+    var urlMethod =
+        "/restful/objects/simple.inmueble/$inmuebleid/actions/UpdateDatosProncipales/invoke";
     final editInmuebleBaseUrl = ('$urlBase$urlMethod');
     final response = await http.put(
       Uri.parse(editInmuebleBaseUrl),
@@ -136,10 +136,10 @@ class AvisosServices extends GetConnect {
     }
   }
 
-  Future<AgregarImagen> agregarImagen(
-      AgregarImagen imagen /*, String hrefInmueble*/) async {
-    const urlMethod =
-        "/restful/objects/simple.inmueble/2/actions/imagenAdd/invoke";
+  void addImagen(AgregarImagen imagen, int? inmuebleid) async {
+    //TODO
+    var urlMethod =
+        "/restful/objects/simple.inmueble/$inmuebleid/actions/imagenAdd/invoke";
     final agregarImagenUrl = ('$urlBase$urlMethod');
     final response = await http.put(
       Uri.parse(agregarImagenUrl),
@@ -150,7 +150,7 @@ class AvisosServices extends GetConnect {
       if (response.statusCode == 200) {
         //final responseAgregarImagen = response.body;
         //return agregarImagenFromJson(responseAgregarImagen);
-        return imagen;
+        //return imagen;
       } else {
         throw Exception('Failed to load ...');
       }

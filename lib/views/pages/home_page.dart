@@ -11,6 +11,9 @@ class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
   final HomeController _homeController = Get.put(HomeController());
+  final AvisosController _avisosController = Get.put(AvisosController());
+  final ScrollController _scrollController = ScrollController();
+
   final storage = GetStorage();
   final titleTextStyle = const TextStyle(
     fontSize: 20,
@@ -29,58 +32,94 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Inmobiliaria Del Sur'), actions: [
-        IconButton(
-          onPressed: () {
-            storage.erase();
-            Get.to(() => AvisosPage());
-          },
-          icon: const Icon(
-            Icons.logout,
-            color: Colors.white,
+      appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              storage.erase();
+              Get.to(() => AvisosPage());
+            },
+            icon: const Icon(
+              Icons.logout,
+              color: Color.fromARGB(255, 2, 34, 90),
+            ),
           ),
-        )
-      ]),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Form(
-              child: Column(
-                children: [
-                  avisosListButton(),
-                  Obx(
-                    () {
-                      if (_homeController.isLoading.value) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.all(5),
-                          itemCount: _homeController.inmueblesList.length,
-                          itemBuilder: (context, index) {
-                            return buildCard(index, context);
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ],
+          title: const Text('Inmobiliaria Del Sur'),
+          titleTextStyle: const TextStyle(
+              color: Color.fromARGB(255, 6, 43, 107),
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
+          backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+              onPressed: () {
+                _homeController.onInit();
+              },
+              icon: const Icon(
+                Icons.refresh,
+                color: Color.fromARGB(255, 2, 34, 90),
               ),
             ),
-          ],
-        ),
+            const Padding(
+              padding: EdgeInsets.all(5.0),
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/delSurIcon.png'),
+              ),
+            ),
+            const SizedBox(width: 10.0),
+          ]),
+      body: Column(
+        children: [
+          avisosListButton(),
+          Expanded(
+            child: Obx(
+              () {
+                if (_homeController.isLoading.value) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return ListView.builder(
+                    controller: _scrollController,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(5),
+                    itemCount: _homeController.inmueblesList.length,
+                    itemBuilder: (context, index) {
+                      return buildCard(index, context);
+                    },
+                  );
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
   avisosListButton() {
-    return ElevatedButton(
-      onPressed: () {
-        Get.to(() => AvisosPage());
-      },
-      child: const Text('Lista de aviso'),
+    return InkWell(
+      onTap: (() => Get.to(() => AvisosPage())),
+      child: SizedBox(
+        width: 250,
+        height: 50,
+        child: Card(
+          color: const Color.fromARGB(255, 11, 54, 90).withOpacity(0.5),
+          shadowColor: Colors.black54,
+          elevation: 20.0,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+            child: Text(
+              "Ir a la lista de avisos",
+              style: titleTextStyle,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -105,22 +144,19 @@ class HomePage extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(1.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                            _homeController.inmueblesList[index].descripcion
-                                    ?.toString() ??
-                                "",
-                            style: titleTextStyle),
-                        subtitle: Text(
-                            "${_homeController.inmueblesList[index].calle?.toString()} ${_homeController.inmueblesList[index].altura?.toString()}",
-                            style: subTitleTextStyle),
-                      )
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                          _homeController.inmueblesList[index].descripcion
+                                  ?.toString() ??
+                              "",
+                          style: titleTextStyle),
+                      subtitle: Text(
+                          "${_homeController.inmueblesList[index].calle?.toString()} ${_homeController.inmueblesList[index].altura?.toString()}",
+                          style: subTitleTextStyle),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -130,13 +166,4 @@ class HomePage extends StatelessWidget {
       ],
     );
   }
-
-  // getAvisosButton() {
-  //   return ElevatedButton(
-  //     onPressed: () {
-  //       _avisosController.fetchAvisos();
-  //     },
-  //     child: const Text('Get Avisos'),
-  //   );
-  // }
 }

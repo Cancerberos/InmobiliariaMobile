@@ -41,6 +41,7 @@ class AvisosController extends GetxController {
             await _remoteServices.getInmueble(aviso.inmueble?.href);
       }
     } finally {
+      isLoading(false);
       fetchImagenesInmueble();
     }
   }
@@ -53,7 +54,6 @@ class AvisosController extends GetxController {
         }
       }
     } finally {
-      isLoading(false);
       fetchInmuebleCaracteristica();
     }
   }
@@ -89,7 +89,7 @@ class AvisosController extends GetxController {
 
   //MOCK DATA
 
-  void generarListaAvisos() async {
+  void generarListaAvisosMOCK() async {
     try {
       isLoading(true);
 

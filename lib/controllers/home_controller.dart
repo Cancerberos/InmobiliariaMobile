@@ -29,6 +29,8 @@ class HomeController extends GetxController {
   void fetchImagenesInmueble() async {
     try {
       for (var inmueble in inmueblesList) {
+        inmueble.imagen =
+            await _remoteServices.getImagenes(inmueble.inmuebleid!);
         if (inmueble.imagen != null) {
           for (var imagen in inmueble.imagen!) {
             imagen.imagenDetalle = imagenDelleFromJson(imagen.url);

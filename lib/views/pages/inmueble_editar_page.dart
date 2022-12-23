@@ -430,62 +430,71 @@ class InmuebleEditarPage extends StatelessWidget {
                       onPressed: () {
                         try {
                           _inmuebleEditarController
-                                  .inmueble.value.altura.value =
+                                  .inmueble.value.altura?.value =
                               _inmuebleEditarController.alturaController.text
                                   .toUpperCase();
-                          _inmuebleEditarController.inmueble.value.calle.value =
+                          _inmuebleEditarController
+                                  .inmueble.value.calle?.value =
                               _inmuebleEditarController.calleController.text
                                   .toUpperCase();
                           _inmuebleEditarController
-                                  .inmueble.value.departamento.value =
+                                  .inmueble.value.departamento?.value =
                               _inmuebleEditarController
                                   .departamentoController.text
                                   .toUpperCase();
                           _inmuebleEditarController
-                                  .inmueble.value.descripcion.value =
+                                  .inmueble.value.descripcion?.value =
                               _inmuebleEditarController
                                   .descripcionController.text
                                   .toUpperCase();
                           _inmuebleEditarController
-                                  .inmueble.value.edificacion.value =
+                                  .inmueble.value.edificacion?.value =
                               _inmuebleEditarController
                                   .edificacionController.text
                                   .toUpperCase();
                           _inmuebleEditarController
-                                  .inmueble.value.fechaExclusividad.value =
+                                  .inmueble.value.fechaExclusividad?.value =
                               _inmuebleEditarController
                                   .fechaExclusividadController.value.text
                                   .replaceRange(10, 11, "T");
                           _inmuebleEditarController
-                                  .inmueble.value.latitud.value =
+                                  .inmueble.value.latitud?.value =
                               _inmuebleEditarController.latitudController.text
                                   .toUpperCase();
                           _inmuebleEditarController
-                                  .inmueble.value.longitud.value =
+                                  .inmueble.value.longitud?.value =
                               _inmuebleEditarController.longitudController.text
                                   .toUpperCase();
-                          _inmuebleEditarController.inmueble.value.piso.value =
+                          _inmuebleEditarController.inmueble.value.piso?.value =
                               _inmuebleEditarController.pisoController.text
                                   .toUpperCase();
 
                           // href Cliente
-                          _inmuebleEditarController.inmueble.value.cliente.value
-                              .href = inmueble.cliente!.href.toString();
+                          _inmuebleEditarController.inmueble.value.cliente
+                              ?.value.href = inmueble.cliente!.href.toString();
 
                           // title Cliente
-                          _inmuebleEditarController.inmueble.value.cliente.value
+                          _inmuebleEditarController
+                              .inmueble
+                              .value
+                              .cliente
+                              ?.value
                               .title = inmueble.cliente!.title.toString();
 
                           // href Localidad
-                          _inmuebleEditarController.inmueble.value.localidad
-                              .value.href = inmueble.localidad!.href.toString();
+                          _inmuebleEditarController
+                              .inmueble
+                              .value
+                              .localidad
+                              ?.value
+                              .href = inmueble.localidad!.href.toString();
 
                           // title Localidad
                           _inmuebleEditarController
                               .inmueble
                               .value
                               .localidad
-                              .value
+                              ?.value
                               .title = inmueble.localidad!.title.toString();
 
                           // href TipoUnidad
@@ -493,7 +502,7 @@ class InmuebleEditarPage extends StatelessWidget {
                               .inmueble
                               .value
                               .tipoUnidad
-                              .value
+                              ?.value
                               .href = inmueble.tipoUnidad!.href.toString();
 
                           // title TipoUnidad
@@ -501,11 +510,11 @@ class InmuebleEditarPage extends StatelessWidget {
                               .inmueble
                               .value
                               .tipoUnidad
-                              .value
+                              ?.value
                               .title = inmueble.tipoUnidad!.title.toString();
                         } finally {
-                          _inmuebleEditarController.editarInmueble(
-                              /*inmueble.href*/);
+                          _inmuebleEditarController
+                              .editarInmueble(inmueble.inmuebleid);
                         }
                       },
                       child: const Text('Guardar'),

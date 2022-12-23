@@ -44,14 +44,24 @@ class AvisosPage extends StatelessWidget {
                 color: Color.fromARGB(255, 6, 43, 107),
                 fontSize: 20,
                 fontWeight: FontWeight.bold),
-            actions: const [
-              Padding(
+            actions: [
+              IconButton(
+                onPressed: () {
+                  //TODO cambiar por el refesh nativo
+                  avisosController.fetchAvisos();
+                },
+                icon: const Icon(
+                  Icons.refresh,
+                  color: Color.fromARGB(255, 2, 34, 90),
+                ),
+              ),
+              const Padding(
                 padding: EdgeInsets.all(5.0),
                 child: CircleAvatar(
                   backgroundImage: AssetImage('assets/delSurIcon.png'),
                 ),
               ),
-              SizedBox(width: 10.0),
+              const SizedBox(width: 10.0),
             ],
           ),
           body: Obx(

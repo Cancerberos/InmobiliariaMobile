@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -28,6 +30,19 @@ class InmuebleMapa extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: GoogleMap(
+            gestureRecognizers: Set()
+              ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
+              ..add(
+                Factory<VerticalDragGestureRecognizer>(
+                    () => VerticalDragGestureRecognizer()),
+              )
+              ..add(
+                Factory<HorizontalDragGestureRecognizer>(
+                    () => HorizontalDragGestureRecognizer()),
+              )
+              ..add(
+                Factory<ScaleGestureRecognizer>(() => ScaleGestureRecognizer()),
+              ),
             zoomControlsEnabled: true,
             markers: <Marker>{
               Marker(

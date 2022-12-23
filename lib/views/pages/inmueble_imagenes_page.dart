@@ -7,12 +7,14 @@ import 'package:inmobiliaria/views/pages/pages.dart';
 
 import '../../controllers/controllers.dart';
 import '../../models/models.dart';
+import '../widgets/widgets.dart';
 
 class InmuebleImagenesPage extends StatelessWidget {
   InmuebleImagenesPage({required this.inmueble, Key? key}) : super(key: key);
 
   final ImagePickerController _imagePickerController =
       Get.put(ImagePickerController());
+  final HomeController _homeController = Get.put(HomeController());
   final Inmueble inmueble;
 
   final titleTextStyle = const TextStyle(
@@ -74,14 +76,26 @@ class InmuebleImagenesPage extends StatelessWidget {
                 color: Color.fromARGB(255, 2, 34, 90),
               ),
             ),
-            actions: const [
-              Padding(
+            actions: [
+              IconButton(
+                onPressed: () {
+                  _homeController.fetchImagenesInmueble();
+                  Get.to(() => InmuebleImagenesPage(
+                        inmueble: inmueble,
+                      ));
+                },
+                icon: const Icon(
+                  Icons.refresh,
+                  color: Color.fromARGB(255, 2, 34, 90),
+                ),
+              ),
+              const Padding(
                 padding: EdgeInsets.all(5.0),
                 child: CircleAvatar(
                   backgroundImage: AssetImage('assets/delSurIcon.png'),
                 ),
               ),
-              SizedBox(width: 10.0),
+              const SizedBox(width: 10.0),
             ],
           ),
           body: SingleChildScrollView(
@@ -89,10 +103,39 @@ class InmuebleImagenesPage extends StatelessWidget {
               children: [
                 const Divider(height: 20),
                 Obx(
-                  () => _imagePickerController.selectedImagePath.value == ''
-                      ? Column(
-                          children: [
-                            SizedBox(
+                  () => Column(
+                    children: [
+                      _imagePickerController.selectedImagePath.value == ''
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  child: Card(
+                                    color: const Color.fromARGB(255, 11, 54, 90)
+                                        .withOpacity(0.5),
+                                    shadowColor: Colors.black54,
+                                    elevation: 20.0,
+                                    clipBehavior: Clip.antiAlias,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(1.0),
+                                      child: Image(
+                                          image: AssetImage(
+                                              'assets/delSurBackground.jpeg')),
+                                    ),
+                                  ),
+                                ),
+                                const Text(
+                                  "Seleccione una imagen",
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white),
+                                ),
+                              ],
+                            )
+                          : SizedBox(
                               width: MediaQuery.of(context).size.width * 0.8,
                               child: Card(
                                 color: const Color.fromARGB(255, 11, 54, 90)
@@ -103,132 +146,113 @@ class InmuebleImagenesPage extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: const Padding(
-                                  padding: EdgeInsets.all(1.0),
-                                  child: Image(
-                                      image: AssetImage(
-                                          'assets/delSurBackground.jpeg')),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(1.0),
+                                  child: Image.file(
+                                    File(_imagePickerController
+                                        .selectedImagePath.value),
+                                  ),
                                 ),
                               ),
                             ),
-                            const Text(
-                              "Seleccione una imagen",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],
-                        )
-                      : SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: Card(
-                            color: const Color.fromARGB(255, 11, 54, 90)
-                                .withOpacity(0.5),
-                            shadowColor: Colors.black54,
-                            elevation: 20.0,
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: Image.file(
-                                File(_imagePickerController
-                                    .selectedImagePath.value),
-                              ),
-                            ),
-                          ),
-                        ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: (() {
-                        _imagePickerController.getImage(ImageSource.gallery);
-                      }),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Card(
-                          color: const Color.fromARGB(255, 11, 54, 90)
-                              .withOpacity(0.5),
-                          shadowColor: Colors.black54,
-                          elevation: 20.0,
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.vertical,
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title:
-                                        Text("Galería", style: titleTextStyle),
-                                    trailing: Icon(
-                                      Icons.photo,
-                                      color: titleTextStyle.color,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: (() {
+                              _imagePickerController
+                                  .getImage(ImageSource.gallery);
+                            }),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Card(
+                                color: const Color.fromARGB(255, 11, 54, 90)
+                                    .withOpacity(0.5),
+                                shadowColor: Colors.black54,
+                                elevation: 20.0,
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title: Text("Galería",
+                                              style: titleTextStyle),
+                                          trailing: Icon(
+                                            Icons.photo,
+                                            color: titleTextStyle.color,
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  )
-                                ],
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: (() {
-                        _imagePickerController.getImage(ImageSource.camera);
-                      }),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Card(
-                          color: const Color.fromARGB(255, 11, 54, 90)
-                              .withOpacity(0.5),
-                          shadowColor: Colors.black54,
-                          elevation: 20.0,
-                          clipBehavior: Clip.antiAlias,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(1.0),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.vertical,
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title:
-                                        Text("Cámara", style: titleTextStyle),
-                                    trailing: Icon(
-                                      Icons.camera_enhance,
-                                      color: titleTextStyle.color,
+                          InkWell(
+                            onTap: (() {
+                              _imagePickerController
+                                  .getImage(ImageSource.camera);
+                            }),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Card(
+                                color: const Color.fromARGB(255, 11, 54, 90)
+                                    .withOpacity(0.5),
+                                shadowColor: Colors.black54,
+                                elevation: 20.0,
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(1.0),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title: Text("Cámara",
+                                              style: titleTextStyle),
+                                          trailing: Icon(
+                                            Icons.camera_enhance,
+                                            color: titleTextStyle.color,
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  )
-                                ],
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 8),
+                      if (inmueble.imagen!.isNotEmpty)
+                        ImageCarousel(inmueble)
+                      else
+                        const Image(
+                            image: AssetImage('assets/delSurBackground.jpeg')),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 8),
-                // if (inmueble.imagen!.isNotEmpty)
-                //   ImageCarousel(inmueble)
-                // else
-                //   const Image(
-                //       image: AssetImage('assets/delSurBackground.jpeg')),
               ],
             ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              _imagePickerController.agregarImagen();
+              _imagePickerController.agregarImagen(inmueble.inmuebleid);
+              _homeController.onInit();
+              Get.to(() => HomePage());
             },
-            tooltip: 'Guerdar Imagen',
+            tooltip: 'Guardar Imagen',
             child: const Icon(Icons.save),
           ),
         ),

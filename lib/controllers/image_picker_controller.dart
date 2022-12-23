@@ -11,6 +11,7 @@ import '../models/models.dart';
 import '../services/avisos_service.dart';
 
 class ImagePickerController extends GetxController {
+  var isLoading = true.obs;
   final AvisosServices _avisosServices = Get.put(AvisosServices());
 
   final _imagen = AgregarImagen(
@@ -47,7 +48,7 @@ class ImagePickerController extends GetxController {
       final targetPath = "${dir.absolute.path}/temp.jpg";
       var compressedFile = await FlutterImageCompress.compressAndGetFile(
           selectedImagePath.value, targetPath,
-          quality: 90);
+          quality: 60);
       compressImagePath.value = compressedFile!.path;
 
       Uint8List imgbytes = await compressedFile.readAsBytes();
@@ -72,11 +73,14 @@ class ImagePickerController extends GetxController {
     }
   }
 
-  void agregarImagen() async {
+  void agregarImagen(int? inmuebleid) async {
     try {
-      await _avisosServices.agregarImagen(_imagen.value);
+      isLoading(true);
+      _avisosServices.addImagen(_imagen.value, inmuebleid);
     } finally {
+      await _avisosServices.getImagenes(inmuebleid);
       selectedImagePath.value = '';
+      isLoading(false);
     }
   }
 
