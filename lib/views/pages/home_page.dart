@@ -11,7 +11,6 @@ class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
   final HomeController _homeController = Get.put(HomeController());
-  final AvisosController _avisosController = Get.put(AvisosController());
   final ScrollController _scrollController = ScrollController();
 
   final storage = GetStorage();

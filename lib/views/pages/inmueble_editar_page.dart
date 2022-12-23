@@ -239,14 +239,8 @@ class InmuebleEditarPage extends StatelessWidget {
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      hintText: inmueble.piso,
+                      hintText: _inmuebleEditarController.pisoController.text,
                     ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Obligatorio';
-                      }
-                      return null;
-                    },
                   ),
                   const Divider(),
                   TextFormField(
@@ -425,9 +419,9 @@ class InmuebleEditarPage extends StatelessWidget {
                   ),
                   const Divider(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: ElevatedButton(
-                      onPressed: () {
+                    padding: const EdgeInsets.all(10),
+                    child: InkWell(
+                      onTap: (() {
                         try {
                           _inmuebleEditarController
                                   .inmueble.value.altura?.value =
@@ -515,20 +509,54 @@ class InmuebleEditarPage extends StatelessWidget {
                         } finally {
                           _inmuebleEditarController
                               .editarInmueble(inmueble.inmuebleid);
+                          _inmuebleEditarController.alturaController.clear();
+                          _inmuebleEditarController.calleController.clear();
+                          _inmuebleEditarController.clienteController.clear();
+                          _inmuebleEditarController.departamentoController
+                              .clear();
+                          _inmuebleEditarController.descripcionController
+                              .clear();
+                          _inmuebleEditarController.edificacionController
+                              .clear();
+                          _inmuebleEditarController.fechaExclusividadController
+                              .clear();
+                          _inmuebleEditarController.latitudController.clear();
+                          _inmuebleEditarController.localidadController.clear();
+                          _inmuebleEditarController.longitudController.clear();
+                          _inmuebleEditarController.pisoController.clear();
+                          _inmuebleEditarController.tipoUnidadController
+                              .clear();
                         }
-                      },
-                      child: const Text('Guardar'),
+                      }),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Card(
+                          color: const Color.fromARGB(255, 46, 102, 148)
+                              .withOpacity(0.5),
+                          shadowColor: Colors.black54,
+                          elevation: 20.0,
+                          clipBehavior: Clip.antiAlias,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: ListTile(
+                              title: Text(
+                                "Guardar",
+                                style: textStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          // floatingActionButton: FloatingActionButton(
-          //   onPressed: () => avisoContacto(aviso, context),
-          //   tooltip: 'Formulario para consulta de Aviso.',
-          //   child: const Icon(Icons.question_answer),
-          // ),
         ),
       ],
     );

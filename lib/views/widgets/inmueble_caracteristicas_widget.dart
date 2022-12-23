@@ -20,7 +20,7 @@ class InmuebleCaracteristicas extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width - 15,
       child: Card(
-        color: const Color.fromARGB(255, 11, 54, 90).withOpacity(0.5),
+        color: const Color.fromARGB(255, 46, 102, 148).withOpacity(0.5),
         shadowColor: Colors.black54,
         elevation: 20.0,
         clipBehavior: Clip.antiAlias,

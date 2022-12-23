@@ -30,6 +30,7 @@ class InmuebleMapa extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
           child: GoogleMap(
+            // ignore: prefer_collection_literals
             gestureRecognizers: Set()
               ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
               ..add(

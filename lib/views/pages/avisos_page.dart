@@ -26,7 +26,6 @@ class AvisosPage extends StatelessWidget {
             leading: IconButton(
               color: const Color.fromARGB(255, 6, 43, 107),
               onPressed: () {
-                //print(storage.read("ADMIN"));
                 if (storage.read("ADMIN") == true) {
                   Get.to(() => HomePage());
                 } else {
@@ -38,7 +37,11 @@ class AvisosPage extends StatelessWidget {
                 color: Color.fromARGB(255, 2, 34, 90),
               ),
             ),
-            title: const Text('Avisos de Propiedades'),
+            title: const Text(
+              'Avisos de Propiedades',
+              overflow: TextOverflow.fade,
+              style: TextStyle(fontSize: 18),
+            ),
             centerTitle: false,
             titleTextStyle: const TextStyle(
                 color: Color.fromARGB(255, 6, 43, 107),

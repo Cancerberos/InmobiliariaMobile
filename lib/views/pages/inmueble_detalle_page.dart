@@ -81,44 +81,44 @@ class InmuebleDetallePage extends StatelessWidget {
           body: ListView(
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                InkWell(
-                  onTap: (() {}),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: Card(
-                      color: const Color.fromARGB(255, 11, 54, 90)
-                          .withOpacity(0.5),
-                      shadowColor: Colors.black54,
-                      elevation: 20.0,
-                      clipBehavior: Clip.antiAlias,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text("Características",
-                                    style: titleTextStyle),
-                                trailing: const Icon(Icons.attribution),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: (() {}),
+                //   child: SizedBox(
+                //     width: MediaQuery.of(context).size.width * 0.5,
+                //     child: Card(
+                //       color: const Color.fromARGB(255, 11, 54, 90)
+                //           .withOpacity(0.5),
+                //       shadowColor: Colors.black54,
+                //       elevation: 20.0,
+                //       clipBehavior: Clip.antiAlias,
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(10),
+                //       ),
+                //       child: Padding(
+                //         padding: const EdgeInsets.all(1.0),
+                //         child: SingleChildScrollView(
+                //           scrollDirection: Axis.vertical,
+                //           child: Column(
+                //             children: [
+                //               ListTile(
+                //                 title: Text("Características",
+                //                     style: titleTextStyle),
+                //                 trailing: const Icon(Icons.attribution),
+                //               )
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 InkWell(
                   onTap: (() =>
                       Get.to(() => InmuebleImagenesPage(inmueble: inmueble))),
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.7,
                     child: Card(
-                      color: const Color.fromARGB(255, 11, 54, 90)
+                      color: const Color.fromARGB(255, 46, 102, 148)
                           .withOpacity(0.5),
                       shadowColor: Colors.black54,
                       elevation: 20.0,
@@ -133,9 +133,15 @@ class InmuebleDetallePage extends StatelessWidget {
                           child: Column(
                             children: [
                               ListTile(
-                                title: Text("Imágenes", style: titleTextStyle),
-                                trailing:
-                                    const Icon(Icons.picture_in_picture_alt),
+                                title: Text(
+                                  "Imágenes",
+                                  style: titleTextStyle,
+                                  textAlign: TextAlign.center,
+                                ),
+                                trailing: const Icon(
+                                  Icons.photo,
+                                  color: Colors.white,
+                                ),
                               )
                             ],
                           ),
@@ -146,13 +152,8 @@ class InmuebleDetallePage extends StatelessWidget {
                 ),
               ]),
               const SizedBox(height: 8),
-              // if (inmueble.imagen!.isNotEmpty)
-              //   ImageCarousel(inmueble)
-              // else
-              //   const Image(image: AssetImage('assets/delSurBackground.jpeg')),
               const SizedBox(height: 8),
               InmuebleDetalle(inmueble: inmueble),
-              //InmuebleCaracteristicas(aviso: aviso),
               InmuebleMapa(inmueble: inmueble),
               const Divider(height: 50)
             ],

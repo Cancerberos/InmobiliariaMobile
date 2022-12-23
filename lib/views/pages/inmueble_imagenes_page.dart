@@ -112,8 +112,9 @@ class InmuebleImagenesPage extends StatelessWidget {
                                   width:
                                       MediaQuery.of(context).size.width * 0.8,
                                   child: Card(
-                                    color: const Color.fromARGB(255, 11, 54, 90)
-                                        .withOpacity(0.5),
+                                    color:
+                                        const Color.fromARGB(255, 46, 102, 148)
+                                            .withOpacity(0.5),
                                     shadowColor: Colors.black54,
                                     elevation: 20.0,
                                     clipBehavior: Clip.antiAlias,
@@ -138,7 +139,7 @@ class InmuebleImagenesPage extends StatelessWidget {
                           : SizedBox(
                               width: MediaQuery.of(context).size.width * 0.8,
                               child: Card(
-                                color: const Color.fromARGB(255, 11, 54, 90)
+                                color: const Color.fromARGB(255, 46, 102, 148)
                                     .withOpacity(0.5),
                                 shadowColor: Colors.black54,
                                 elevation: 20.0,
@@ -166,7 +167,7 @@ class InmuebleImagenesPage extends StatelessWidget {
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.5,
                               child: Card(
-                                color: const Color.fromARGB(255, 11, 54, 90)
+                                color: const Color.fromARGB(255, 46, 102, 148)
                                     .withOpacity(0.5),
                                 shadowColor: Colors.black54,
                                 elevation: 20.0,
@@ -203,7 +204,7 @@ class InmuebleImagenesPage extends StatelessWidget {
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.5,
                               child: Card(
-                                color: const Color.fromARGB(255, 11, 54, 90)
+                                color: const Color.fromARGB(255, 46, 102, 148)
                                     .withOpacity(0.5),
                                 shadowColor: Colors.black54,
                                 elevation: 20.0,

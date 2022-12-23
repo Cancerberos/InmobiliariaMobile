@@ -68,7 +68,7 @@ class Inmueble {
   List<InmuebleCaracteristica>? inmueble;
 
   factory Inmueble.fromJson(Map<String, dynamic> json) => Inmueble(
-        inmuebleid: json["inmuebleid"] == null ? null : json["inmuebleid"],
+        inmuebleid: json["inmuebleid"],
         descripcion: json["descripcion"],
         fechaExclusividad: json["fechaExclusividad"] == null
             ? null

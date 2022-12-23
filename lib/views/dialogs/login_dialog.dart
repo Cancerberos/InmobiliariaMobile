@@ -82,9 +82,8 @@ Future loginDialog(BuildContext context) => showDialog(
               try {
                 _loginController.getUserValidation();
               } finally {
-                // TODO descomentar para producción
-                // _loginController.usernameController.clear();
-                // _loginController.passwordController.clear();
+                _loginController.usernameController.clear();
+                _loginController.passwordController.clear();
               }
             },
             child: const Text('Login'),

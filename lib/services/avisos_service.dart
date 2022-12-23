@@ -23,7 +23,7 @@ class AvisosServices extends GetConnect {
     var response = await client.get(Uri.parse(getAvisosUrl), headers: headers);
 
     if (response.statusCode == 200) {
-      final responseAvisos = response.body;
+      final responseAvisos = utf8.decode(response.bodyBytes);
       return avisoFromJson(responseAvisos);
     } else {
       throw Exception('Failed to load ...');
